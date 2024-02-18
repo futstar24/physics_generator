@@ -22,8 +22,7 @@ public class LevelSelector : MonoBehaviour
     }
     public void OnExit()
     {
-        TopicsList.SetActive(false);
-        SetListActive("");
+        Application.Quit();
     }
 
     public void SetListActive(string topic)
