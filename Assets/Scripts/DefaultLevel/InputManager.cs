@@ -15,12 +15,16 @@ public class InputManager : MonoBehaviour
     public void ClearInput(TMP_InputField inputField)
     {
         Debug.Log("d");
+        if (inputField.text == "")
+        {
+            return;
+        }
         inputField.text = "";
     }
     public void OnChanged(TMP_InputField inputField)
     {
         Debug.Log("f");
-        EventSystem.current.SetSelectedGameObject(null);
+        
         string[] keywords = inputField.text.Split(" ");
         string input = new string("");
         for (int i = 0; i < keywords.Length; i++)
@@ -54,7 +58,10 @@ public class InputManager : MonoBehaviour
             }
         }
         inputField.text = input;
-
+        if (!EventSystem.current.alreadySelecting)
+        {
+            EventSystem.current.SetSelectedGameObject(null);
+        }
         //add more
     }
 }

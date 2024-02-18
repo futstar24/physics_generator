@@ -22,22 +22,36 @@ public class PlayLevel : MonoBehaviour
     public TMP_Text goalText;
     public Button practiceButton;
     private Dictionary<string,string[][]> propertyInfo = new Dictionary<string, string[][]>();
+
     public List<Rigidbody2D> mainLevelObjects;
     public List<Rigidbody2D> sandboxLevelObjects;
     private List<string> mainLevelObjectNames;
     private List<string> sandboxLevelObjectNames;
+
     private string goalStartText;
     public float goalValue;
     private string sceneName;
 
+    public GameObject propertyUI;
+    [Serializable]
+    public struct baseProperty
+    {
+        public string propertyName;
+        public bool enabled;
+        public float initialValue;
+    }
+
+    public baseProperty[] baseProperties = { };
+
+
     private void Start()
     {
         sceneName = SceneManager.GetActiveScene().name;
+        propertyInfo.Add("DefaultLevel", new string[][] { new string[] { "velocity" }, new string[] { "velocity", "mass" } });
         propertyInfo.Add("Kinematics-1", new string[][] { new string[] { "height" }, new string[] { "height", "velocity","acceleration"}});
         propertyInfo.Add("Momentum-1", new string[][] { new string[] { "velocity" }, new string[] { "velocity","mass" } });
         propertyInfo.Add("Momentum-2", new string[][] { new string[] { "velocity" }, new string[] { "velocity", "mass" } });
         levelMode();
-        propertiesText.text = "";
         levelHeight = 7;
         goalStartText = goalText.text;
         goalText.text = goalStartText+goalValue;
@@ -46,6 +60,8 @@ public class PlayLevel : MonoBehaviour
         foreach (Rigidbody2D obj in levelObjects)
         {
             obj.gravityScale = 0;
+            GameObject levelObject = obj.transform.gameObject;
+            Debug.Log(levelObject.name);
             if (sceneName == "Momentum-2")
             {
                 obj.gameObject.GetComponent<calculateNewVelocities>().goalV2 = 2;
@@ -54,6 +70,9 @@ public class PlayLevel : MonoBehaviour
             {
                 obj.gameObject.GetComponent<CheckVelocity>().velocityGoal = goalValue;
             }
+
+            createProperties(levelObject);
+
         }
 
         
@@ -88,7 +107,6 @@ public class PlayLevel : MonoBehaviour
         {
             levelObjectNames.Add(rb.name);
         }
-        practiceButton.GetComponentInChildren<TextMeshProUGUI>().text = "Sandbox";
     }
 
     public void submitText()
@@ -232,6 +250,18 @@ public class PlayLevel : MonoBehaviour
             apply.GetComponent<ApplyProperties>().applyProperties(properties.ToArray(), levelObject, SceneManager.GetActiveScene().name);
         }
     }
+    private void createProperties(GameObject levelObject)
+    {
+        GameObject property = Instantiate(propertyUI, new Vector3(0, 0, 0), Quaternion.identity);
+        property.transform.parent = levelObject.transform;
 
+        foreach(baseProperty bP in baseProperties)
+        {
+            if (bP.enabled)
+            {
+               GameObject text = property.transform.GetChild(0).gameObject.transform.GetChild(0).transform.gameObject;
+            }
+        }
+    }
 }
 
