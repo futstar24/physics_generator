@@ -6,16 +6,14 @@ using System.Text.RegularExpressions;
 using System.Linq;
 using System;
 
-public class textInputSubmit : MonoBehaviour
+public class MometumLevel1 : MonoBehaviour
 {
 
     public TMP_InputField input;
     public Rigidbody2D[] levelObjects;
     public String[] levelObjectNames;
     public string[] propertyKeyWords;
-    public TMP_Text timeText;
     public TMP_Text propertiesText;
-    public TMP_Text yourTimeText;
     public List<string[]> properties = new List<string[]>();
     public int levelHeight;
     public List<String> inputs;
@@ -24,26 +22,27 @@ public class textInputSubmit : MonoBehaviour
     {
         propertiesText.text = "";
         levelHeight = 7;
-        yourTimeText.text = "Your time: 0.00";
-        double[] possibleTimes = { 1.15};
+        double[] possibleFinalVelocities = { 1.15 };
         System.Random random = new System.Random();
-        int randomIndex = random.Next(possibleTimes.Length);
-        timeText.text = "Time to Achieve: "+possibleTimes[randomIndex].ToString();
+        int randomIndex = random.Next(possibleFinalVelocities.Length);
         inputs = new List<string>();
         foreach (Rigidbody2D obj in levelObjects)
         {
             obj.gravityScale = 0;
-            obj.gameObject.GetComponent<Timer>().timeGoal = possibleTimes[randomIndex];
+            if (obj.gameObject.GetComponent<Timer>() != null)
+            {
+                obj.gameObject.GetComponent<Timer>().timeGoal = possibleFinalVelocities[randomIndex];
+            }
         }
 
-        
+
     }
 
 
     public void submitText()
     {
 
-        List<string> words = new List<string>(input.text.Split(new string[] {" ","'",","}, StringSplitOptions.RemoveEmptyEntries));
+        List<string> words = new List<string>(input.text.Split(new string[] { " ", "'", "," }, StringSplitOptions.RemoveEmptyEntries));
         Debug.Log(words.ToString());
         Rigidbody2D obj = null;
         string property = "";
@@ -57,14 +56,15 @@ public class textInputSubmit : MonoBehaviour
         int changeI = 0;
         foreach (string word in words)
         {
-            if (propertyKeyWords.Contains(word)) {
+            if (propertyKeyWords.Contains(word))
+            {
                 property = word;
                 propertyCount++;
             }
             if (levelObjectNames.Contains(word))
             {
                 objName = word;
-                for (int i = 0; i<levelObjectNames.Length; i++)
+                for (int i = 0; i < levelObjectNames.Length; i++)
                 {
                     if (levelObjectNames[i] == objName)
                     {
@@ -89,8 +89,8 @@ public class textInputSubmit : MonoBehaviour
             {
 
                 changeI = words.IndexOf(word);
-                numVal = (float) Math.Round(float.Parse(word),3);
-                Debug.Log("num val"+numVal.ToString());
+                numVal = (float)Math.Round(float.Parse(word), 3);
+                Debug.Log("num val" + numVal.ToString());
                 numCount++;
             }
             catch
@@ -103,7 +103,7 @@ public class textInputSubmit : MonoBehaviour
         {
             words[changeI] = numVal.ToString();
         }
-        
+
 
         if ((objName != "" || levelObjects.Length == 1) && property != "" && numVal != null && (direction != "" || property == "angle" || property == "degrees" || property == "mass" || property == "height") && directionCount <= 1 && objCount <= 1 && propertyCount <= 1 && numCount <= 1)
         {
@@ -148,17 +148,17 @@ public class textInputSubmit : MonoBehaviour
         }
         else
         {
-            Debug.Log(property+"fail");
+            Debug.Log(property + "fail");
         }
     }
 
-    public string beautifyText(List<string> words,string obj, string property, string numVal, string direction)
+    public string beautifyText(List<string> words, string obj, string property, string numVal, string direction)
     {
-        string text = String.Join(" ",words);
+        string text = String.Join(" ", words);
         text += " ";
-        Debug.Log("text"+text);
+        Debug.Log("text" + text);
         text = Regex.Replace(text, "<[^>]*>", "", RegexOptions.Singleline);
-        text = Regex.Replace(text, obj, "<color=#ff00ff>"+obj+"</color>", RegexOptions.Singleline);
+        text = Regex.Replace(text, obj, "<color=#ff00ff>" + obj + "</color>", RegexOptions.Singleline);
         text = Regex.Replace(text, property, "<color=#ff0000>" + property + "</color>", RegexOptions.Singleline);
         text = Regex.Replace(text, numVal, "<color=#0000ff>" + numVal + "</color>", RegexOptions.Singleline);
         if (direction != "")
@@ -168,7 +168,7 @@ public class textInputSubmit : MonoBehaviour
         }
         Debug.Log(text);
         return text;
- 
+
     }
 
     public void addProperties()
@@ -177,9 +177,9 @@ public class textInputSubmit : MonoBehaviour
         apply.AddComponent<ApplyProperties>();
         foreach (Rigidbody2D levelObject in levelObjects)
         {
-            levelObject.gravityScale = 1;
-            apply.GetComponent<ApplyProperties>().applyProperties(properties.ToArray(),levelObject);
+            apply.GetComponent<ApplyProperties>().applyProperties(properties.ToArray(), levelObject);
         }
     }
 
 }
+
