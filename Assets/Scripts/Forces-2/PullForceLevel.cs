@@ -7,22 +7,23 @@ using TMPro;
 public class PullForceLevel : MonoBehaviour
 {
     private bool result = false;
-    public TMP_Text resultText;
+    public GameObject win;
+    public GameObject lose;
 
     // Update is called once per frame
     void Update()
     {
         if (this.gameObject.transform.position.x > 3 && !result)
         {
+
+            Debug.Log("updatin");
             result = true;
-            resultText.text = "Your Velocity: " + Math.Round(this.gameObject.GetComponent<Rigidbody2D>().velocity.x, 2);
-            if (Mathf.Abs(this.gameObject.GetComponent<Rigidbody2D>().velocity.x-15) <= 5)
+            if (Math.Abs(this.gameObject.GetComponent<Rigidbody2D>().velocity.x-15) <= 5)
             {
-                Debug.Log("Win");
-                Debug.Log(this.gameObject.GetComponent<Rigidbody2D>().velocity.x);
+                win.SetActive(true);
             } else
             {
-                Debug.Log(this.gameObject.GetComponent<Rigidbody2D>().velocity.x);
+                lose.SetActive(true);
             }
 
         }

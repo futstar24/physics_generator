@@ -215,7 +215,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!212 &598612976
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -308,8 +308,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   angle: 0
   coefficientOfFriction: 0
-  winScreen: {fileID: 0}
-  loseScreen: {fileID: 0}
+  winScreen: {fileID: 229791547986614522}
+  loseScreen: {fileID: 670443746928526540}
 --- !u!1 &1100236577
 GameObject:
   m_ObjectHideFlags: 0
@@ -7957,11 +7957,11 @@ MonoBehaviour:
     initialValues: []
     units: M/S^2
   - propertyName: XForce
-    enabled: 0
+    enabled: 1
     initialValues: []
     units: N
   - propertyName: YForce
-    enabled: 0
+    enabled: 1
     initialValues: []
     units: N
 --- !u!114 &5478403500681360260
