@@ -438,9 +438,10 @@ MonoBehaviour:
   input: {fileID: 1831913198}
   levelHeight: 0
   mainLevelObjects:
-  - {fileID: 0}
+  - {fileID: 258691998}
   sandboxLevelObjects:
-  - {fileID: 0}
+  - {fileID: 258691998}
+  - {fileID: 2019013033}
   goalValue: 5
   inPracticeMode: 0
   propertyUI: {fileID: 7853164319713364789, guid: 3a08defdb00754542849374c055ce06a, type: 3}
