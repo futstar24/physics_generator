@@ -328,6 +328,18 @@ MonoBehaviour:
   m_OnEndEdit:
     m_PersistentCalls:
       m_Calls:
+      - m_Target: {fileID: 2921108726119533921}
+        m_TargetAssemblyTypeName: PlayLevel, Assembly-CSharp
+        m_MethodName: SubmitText
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
       - m_Target: {fileID: 6370147554675655696}
         m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
         m_MethodName: OnChanged
@@ -744,8 +756,8 @@ MonoBehaviour:
   practiceButton: {fileID: 6564987070339468716}
   mainLevelObjects:
   - {fileID: 0}
+  sandboxLevelObjects:
   - {fileID: 0}
-  sandboxLevelObjects: []
   goalValue: 5
   propertyUI: {fileID: 7853164319713364789, guid: 3a08defdb00754542849374c055ce06a, type: 3}
   applyProperties: {fileID: 0}
@@ -1680,7 +1692,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 4312630758530165985}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2921108726119533921}
+        m_TargetAssemblyTypeName: PlayLevel, Assembly-CSharp
+        m_MethodName: PracticeMode
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &6729878946930720855
 MonoBehaviour:
   m_ObjectHideFlags: 0
