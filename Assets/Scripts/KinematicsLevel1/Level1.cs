@@ -5,7 +5,7 @@ using TMPro;
 using System.Text.RegularExpressions;
 using System.Linq;
 using System;
-
+using UnityEngine.EventSystems;
 public class textInputSubmit : MonoBehaviour
 {
 
@@ -19,6 +19,9 @@ public class textInputSubmit : MonoBehaviour
     public List<string[]> properties = new List<string[]>();
     public int levelHeight;
     public List<String> inputs;
+
+    private float inputTime = 0f;
+    private float inputTimeDebounce = 1f;
 
     private void Start()
     {
@@ -38,8 +41,10 @@ public class textInputSubmit : MonoBehaviour
 
         
     }
-
-
+    private void Update()
+    {
+        input.MoveToEndOfLine(false, false);
+    }
     public void submitText()
     {
 
@@ -184,6 +189,52 @@ public class textInputSubmit : MonoBehaviour
             levelObject.gravityScale = 1;
             apply.GetComponent<ApplyProperties>().applyProperties(properties.ToArray(),levelObject,"Kinematics1");
         }
+    }
+
+    public void OnChanged(TMP_InputField inputField)
+    {
+        bool change = false;
+        string[] keywords = inputField.text.Split(" ");
+        string input = new string("");
+        for (int i = 0; i < keywords.Length; i++)
+        {
+            change = true;
+            if (keywords[i] == " ")
+            {
+                continue;
+            }
+            if (keywords[i] == "height")
+            {
+                input += "<color=blue>height</color>";
+            }
+            else if (keywords[i] == "acceleration")
+            {
+
+            }
+            else if (keywords[i] == "mass")
+            {
+
+            }
+            else if (keywords[i] == "velocity")
+            {
+
+            }
+            else if (keywords[i] == "angle")
+            {
+
+            }
+            else
+            {
+                change = false;
+            }
+        }
+        if (change == true)
+        {
+            inputField.text = input;
+            inputField.MoveToEndOfLine(false, false);
+        }
+        
+        //add more
     }
 
 }
