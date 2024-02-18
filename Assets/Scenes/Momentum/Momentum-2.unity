@@ -476,6 +476,7 @@ GameObject:
   - component: {fileID: 414247839}
   - component: {fileID: 414247838}
   - component: {fileID: 414247837}
+  - component: {fileID: 414247841}
   m_Layer: 0
   m_Name: Block2
   m_TagString: Untagged
@@ -622,6 +623,17 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!247 &414247841
+ConstantForce2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 414247836}
+  m_Enabled: 1
+  m_Force: {x: 0, y: 0}
+  m_RelativeForce: {x: 0, y: 0}
+  m_Torque: 0
 --- !u!1 &452292944
 GameObject:
   m_ObjectHideFlags: 0
@@ -6144,6 +6156,7 @@ GameObject:
   - component: {fileID: 792623293}
   - component: {fileID: 792623292}
   - component: {fileID: 792623296}
+  - component: {fileID: 792623297}
   m_Layer: 0
   m_Name: Block1
   m_TagString: Untagged
@@ -6309,6 +6322,17 @@ MonoBehaviour:
   goalV2: 0
   win: {fileID: 1651830888}
   lose: {fileID: 1844711478}
+--- !u!247 &792623297
+ConstantForce2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 792623291}
+  m_Enabled: 1
+  m_Force: {x: 0, y: 0}
+  m_RelativeForce: {x: 0, y: 0}
+  m_Torque: 0
 --- !u!1 &814679530
 GameObject:
   m_ObjectHideFlags: 0

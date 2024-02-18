@@ -37,9 +37,12 @@ public class calculateNewVelocities : MonoBehaviour
             if (Math.Round(newV2.x,3) == goalV2)
             {
                 win.SetActive(true);
+
+                PlayerPrefs.SetInt("Momentum2", 1);
             } else
             {
                 lose.SetActive(true);
+                PlayerPrefs.SetInt("Momentum2", 1);
             }
            
         }

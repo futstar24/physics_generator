@@ -21,9 +21,12 @@ public class PullForceLevel : MonoBehaviour
             if (Math.Abs(this.gameObject.GetComponent<Rigidbody2D>().velocity.x-15) <= 5)
             {
                 win.SetActive(true);
+
+                PlayerPrefs.SetInt("Forces2", 1);
             } else
             {
                 lose.SetActive(true);
+                PlayerPrefs.SetInt("Forces2", 0);
             }
 
         }
