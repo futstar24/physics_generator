@@ -22,16 +22,15 @@ public class PlayLevel : MonoBehaviour
     public TMP_Text goalText;
     public Button practiceButton;
     private Dictionary<string,string[][]> propertyInfo = new Dictionary<string, string[][]>();
-
     public List<Rigidbody2D> mainLevelObjects;
     public List<Rigidbody2D> sandboxLevelObjects;
     private List<string> mainLevelObjectNames;
     private List<string> sandboxLevelObjectNames;
-
     private string goalStartText;
     public float goalValue;
     private string sceneName;
 
+<<<<<<< Updated upstream
     public GameObject propertyUI;
 
     public GameObject applyProperties;
@@ -108,17 +107,21 @@ public class PlayLevel : MonoBehaviour
     public baseProperty[] baseProperties = { };
     private Dictionary<int, List<currentProperty>> currentProperties = new Dictionary<int, List<currentProperty>>();
 
+=======
+>>>>>>> Stashed changes
     private void Start()
     {
         sceneName = SceneManager.GetActiveScene().name;
-        propertyInfo.Add("DefaultLevel", new string[][] { new string[] { "velocity" }, new string[] { "velocity", "mass" } });
         propertyInfo.Add("Kinematics-1", new string[][] { new string[] { "height" }, new string[] { "height", "velocity","acceleration"}});
         propertyInfo.Add("Momentum-1", new string[][] { new string[] { "velocity" }, new string[] { "velocity","mass" } });
         propertyInfo.Add("Momentum-2", new string[][] { new string[] { "velocity" }, new string[] { "velocity", "mass" } });
         propertyInfo.Add("Kinematics-2", new string[][] { new string[] { "velocity" }, new string[] { "velocity", "acceleration"} });
         propertyInfo.Add("Kinematics-3", new string[][] { new string[] { "velocity" }, new string[] { "velocity", "acceleration" } });
         propertyInfo.Add("Momentum-3", new string[][] { new string[] { "velocity" }, new string[] { "velocity", "mass" } });
+        propertyInfo.Add("Forces-1", new string[][] { new string[] { "force" }, new string[] { "force", "mass" } });
+        propertyInfo.Add("Forces-2", new string[][] { new string[] { "force" }, new string[] { "force", "mass" } });
         levelMode();
+        propertiesText.text = "";
         levelHeight = 7;
         goalStartText = goalText.text;
         goalText.text = goalStartText+goalValue;
@@ -128,8 +131,6 @@ public class PlayLevel : MonoBehaviour
         foreach (Rigidbody2D obj in levelObjects)
         {
             obj.gravityScale = 0;
-            GameObject levelObject = obj.transform.gameObject;
-            Debug.Log(levelObject.name);
             if (sceneName == "Momentum-2")
             {
                 obj.gameObject.GetComponent<calculateNewVelocities>().goalV2 = 2;
@@ -142,9 +143,12 @@ public class PlayLevel : MonoBehaviour
             {
                 obj.gameObject.GetComponent<CalculateVelocitiesMomentum3>().goalVF = goalValue;
             }
+<<<<<<< Updated upstream
 
             createProperties(levelObject, i);
             i++;
+=======
+>>>>>>> Stashed changes
         }
 
 
@@ -179,6 +183,7 @@ public class PlayLevel : MonoBehaviour
         {
             levelObjectNames.Add(rb.name);
         }
+        practiceButton.GetComponentInChildren<TextMeshProUGUI>().text = "Sandbox";
     }
 
     public void SubmitText()
@@ -314,6 +319,7 @@ public class PlayLevel : MonoBehaviour
     }
     private void createProperties(GameObject levelObject, int objectNum)
     {
+<<<<<<< Updated upstream
         GameObject property = Instantiate(propertyUI, new Vector3(levelObject.transform.position.x + 0.6841426f, levelObject.transform.position.y - 0.9841181f, -5), Quaternion.identity);
         property.transform.parent = levelObject.transform;
 
@@ -421,5 +427,38 @@ private void DrawProperties()
             }
         }
     }
+=======
+        string text = string.Join(" ", words);
+        Debug.Log("before beautify "+text);
+        text += " ";
+        text = " " + text;
+        Debug.Log("obj"+objName2);
+        text = Regex.Replace(text, "<[^>]*>", "", RegexOptions.Singleline);
+        text = Regex.Replace(text, objName2, "<color=#ff00ff>" + objName2 + "</color>", RegexOptions.Singleline);
+        text = Regex.Replace(text, property, "<color=#ff0000>" + property + "</color>", RegexOptions.Singleline);
+        text = Regex.Replace(text, numVal, "<color=#0000ff>" + numVal + "</color>", RegexOptions.Singleline);
+        if (direction != "")
+        {
+            direction = " " + direction + " ";
+            text = Regex.Replace(text, direction, "<color=#00ddff>" + direction + "</color>", RegexOptions.Singleline);
+        }
+        Debug.Log(text);
+        return text;
+
+    }
+
+    public void addProperties()
+    {
+        if (properties.ToArray().Length == 0) { return; }
+        GameObject apply = new GameObject();
+        apply.AddComponent<ApplyProperties>();
+
+        foreach (Rigidbody2D levelObject in levelObjects)
+        {
+            apply.GetComponent<ApplyProperties>().applyProperties(properties.ToArray(), levelObject, SceneManager.GetActiveScene().name);
+        }
+    }
+
+>>>>>>> Stashed changes
 }
 
