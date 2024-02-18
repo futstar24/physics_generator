@@ -8,6 +8,9 @@ public class CheckVelocity : MonoBehaviour
 {
     public Rigidbody2D block;
     public double velocityGoal;
+
+    public GameObject win;
+    public GameObject lose;
     // Start is called before the first frame update
     private void OnCollisionEnter2D(Collision2D collision)
     {
@@ -18,8 +21,11 @@ public class CheckVelocity : MonoBehaviour
             float vel = (float)Math.Round(block.velocity.x,3);
             if (block.velocity.x == velocityGoal)
             {
-                Debug.Log("Win");
+                win.SetActive(true);
+            } else
+            {
+                win.SetActive(true);
             }
-        }
+        } 
     }
 }
