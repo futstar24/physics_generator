@@ -15,7 +15,6 @@ public class PlayLevel : MonoBehaviour
     private List<Rigidbody2D> levelObjects;
     private List<string> levelObjectNames;
     private List<string> propertyKeyWords;
-    public TMP_Text propertiesText;
     public List<string[]> properties = new List<string[]>();
     public int levelHeight;
     private List<string> inputs;
@@ -160,7 +159,6 @@ public class PlayLevel : MonoBehaviour
 
     public void ResetLevel()
     {
-        currentProperties.Clear();
         int j = 0;
         foreach (Rigidbody2D obj in levelObjects)
         {
@@ -168,7 +166,7 @@ public class PlayLevel : MonoBehaviour
             obj.gameObject.transform.position = new Vector3(initialPosLevel[j].x, initialPosLevel[j].y, -5);
             j++;
         }
-        DrawProperties();
+        clearProperties();
     }
 
     public void practiceMode()
@@ -344,7 +342,7 @@ public class PlayLevel : MonoBehaviour
     private void createProperties(GameObject levelObject, int objectNum)
     {
 
-        GameObject property = Instantiate(propertyUI, new Vector3(levelObject.transform.position.x + 0.6841426f, levelObject.transform.position.y - 0.9841181f, -5), Quaternion.identity);
+        GameObject property = Instantiate(propertyUI, new Vector3(levelObject.transform.position.x + 0.6841426f, levelObject.transform.position.y - 0.9841181f, 5), Quaternion.identity);
         property.transform.parent = levelObject.transform;
 
         foreach (baseProperty bP in baseProperties)
@@ -456,21 +454,42 @@ public class PlayLevel : MonoBehaviour
     }
     private void clearProperties()
     {
-        for (int index = 0; index < currentProperties.Count; index++)
+        currentProperties.Clear();
+
+        for (int index = 0; index < levelObjects.Count; index++)
         {
-            KeyValuePair<int, List<currentProperty>> entry = currentProperties.ElementAt(index);
+            
+            foreach (baseProperty bP in baseProperties)
+            {
+                if (bP.enabled)
+                {
+                    currentProperty currentProperty = new currentProperty();
+                    currentProperty.assignValues(bP.propertyName, bP.returnValue(index));
+                    if (currentProperties.ContainsKey(index))
+                    {
+                        currentProperties[index].Add(currentProperty);
+                    }
+                    else
+                    {
+                        currentProperties[index] = new List<currentProperty>();
+                        currentProperties[index].Add(currentProperty);
+                    }
 
-
+                }
+            }
+            Debug.Log(currentProperties.Count);
         }
+        DrawProperties();
     }
 private void DrawProperties()
     {
         for (int index = 0; index < currentProperties.Count; index++)
         {
-            KeyValuePair<int, List<currentProperty>> entry = currentProperties.ElementAt(index);
+            
+            List<currentProperty> entry =currentProperties[index];
             GameObject propertyText = levelObjects[index].transform.GetChild(0).gameObject.transform.GetChild(0).transform.GetChild(0).transform.gameObject;
             propertyText.GetComponent<TMP_Text>().text = "";
-            foreach (currentProperty cP in entry.Value)
+            foreach (currentProperty cP in entry)
             {
                 Debug.Log(cP.ToString());
                 propertyText.GetComponent<TMP_Text>().text += cP.ToString() + "\n";
