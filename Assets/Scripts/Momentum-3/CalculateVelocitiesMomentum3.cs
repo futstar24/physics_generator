@@ -12,8 +12,9 @@ public class CalculateVelocitiesMomentum3 : MonoBehaviour
     public Rigidbody2D astronaut;
     private float rockVI;
     private float astronautVI;
-    public TMP_Text resultText;
     public float goalVF;
+    public GameObject winScreen;
+    public GameObject loseScreen;
 
     public void calculate()
     {
@@ -23,10 +24,14 @@ public class CalculateVelocitiesMomentum3 : MonoBehaviour
         Debug.Log(rock.mass);
         Vector3 astronautVF = new Vector3(((rock.mass+astronaut.mass)*rockVI-rock.mass*rock.velocity.x)/astronaut.mass,0,0);
         astronaut.velocity = astronautVF;
-        resultText.text = "The astronaut's final velocity: " + Math.Round(astronaut.velocity.x,3);
+        //resultText.text = "The astronaut's final velocity: " + Math.Round(astronaut.velocity.x,3);
         if (Math.Round(astronaut.velocity.x, 3) == goalVF)
         {
             Debug.Log("win");
-        } 
+            winScreen.SetActive(true);
+        }  else
+        {
+            loseScreen.SetActive(true);
+        }
     }
 }
