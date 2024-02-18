@@ -545,6 +545,7 @@ GameObject:
   - component: {fileID: 258691998}
   - component: {fileID: 258691997}
   - component: {fileID: 258692001}
+  - component: {fileID: 258692002}
   m_Layer: 0
   m_Name: Block1
   m_TagString: Untagged
@@ -704,8 +705,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   block: {fileID: 258691998}
-  yourVelocityText: {fileID: 0}
   velocityGoal: 0
+  win: {fileID: 550336555}
+  lose: {fileID: 1436522406}
+--- !u!247 &258692002
+ConstantForce2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 258691996}
+  m_Enabled: 1
+  m_Force: {x: 0, y: 0}
+  m_RelativeForce: {x: 0, y: 0}
+  m_Torque: 0
 --- !u!1 &294508878
 GameObject:
   m_ObjectHideFlags: 0
@@ -9500,6 +9513,7 @@ GameObject:
   - component: {fileID: 2019013034}
   - component: {fileID: 2019013033}
   - component: {fileID: 2019013032}
+  - component: {fileID: 2019013036}
   m_Layer: 0
   m_Name: Block2
   m_TagString: Untagged
@@ -9646,6 +9660,17 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!247 &2019013036
+ConstantForce2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2019013031}
+  m_Enabled: 1
+  m_Force: {x: 0, y: 0}
+  m_RelativeForce: {x: 0, y: 0}
+  m_Torque: 0
 --- !u!4 &1299175517223926190
 Transform:
   m_ObjectHideFlags: 0
