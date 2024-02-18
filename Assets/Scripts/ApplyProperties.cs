@@ -8,10 +8,12 @@ public class ApplyProperties : MonoBehaviour
 
     public void applyProperties(string[][] properties, Rigidbody2D obj)
     {
-        obj.gameObject.GetComponent<Timer>().t = Time.realtimeSinceStartup;
-        obj.gameObject.GetComponent<Timer>().timing = true;
+        if (obj.gameObject.GetComponent<Timer>()!=null)
+        {
+            obj.gameObject.GetComponent<Timer>().t = Time.realtimeSinceStartup;
+            obj.gameObject.GetComponent<Timer>().timing = true;
+        }
         Debug.Log(properties[0]);
-        obj.gravityScale = 1;
         foreach (string[] property in properties)
         {
             if (property[0] == "velocity")
