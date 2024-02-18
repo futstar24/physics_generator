@@ -142,7 +142,7 @@ public class PlayLevel : MonoBehaviour
                 obj.gameObject.GetComponent<CalculateVelocitiesMomentum3>().goalVF = goalValue;
             }
             createProperties(obj.gameObject, i);
-            initialPosLevel[i] = levelObject.transform;
+            //initialPosLevel[i] = levelObject.transform;
 
             i++;
 
