@@ -11,7 +11,9 @@ public class calculateNewVelocities : MonoBehaviour
     public Vector3 oldV1;
     public Vector3 oldV2;
     public float goalV2;
-    public TMP_Text yourVelocityText;
+
+    public GameObject win;
+    public GameObject lose;
 
     private void Update()
     {
@@ -30,11 +32,14 @@ public class calculateNewVelocities : MonoBehaviour
             Debug.Log(newV2);
             block1.velocity = newV1;
             block2.velocity = newV2;
-            yourVelocityText.text = "Your Velocity: " + Math.Round(newV2.x, 3);
+            float vel = (float) Math.Round(newV2.x, 3);
             Debug.Log(newV2.x + " "+goalV2);
             if (Math.Round(newV2.x,3) == goalV2)
             {
-                Debug.Log("Win");
+                win.SetActive(true);
+            } else
+            {
+                lose.SetActive(true);
             }
            
         }
