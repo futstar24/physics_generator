@@ -7957,11 +7957,11 @@ MonoBehaviour:
     initialValues: []
     units: M/S^2
   - propertyName: XForce
-    enabled: 1
+    enabled: 0
     initialValues: []
     units: N
   - propertyName: YForce
-    enabled: 1
+    enabled: 0
     initialValues: []
     units: N
 --- !u!114 &5478403500681360260
