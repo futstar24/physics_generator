@@ -7,7 +7,6 @@ using System;
 public class CheckVelocity : MonoBehaviour
 {
     public Rigidbody2D block;
-    public TMP_Text yourVelocityText;
     public double velocityGoal;
     // Start is called before the first frame update
     private void OnCollisionEnter2D(Collision2D collision)
@@ -16,7 +15,7 @@ public class CheckVelocity : MonoBehaviour
         if (collision.gameObject.name == "Block2")
         {
             Debug.Log("here2");
-            yourVelocityText.text = "Your velocity: " + Math.Round(block.velocity.x,3);
+            float vel = (float)Math.Round(block.velocity.x,3);
             if (block.velocity.x == velocityGoal)
             {
                 Debug.Log("Win");

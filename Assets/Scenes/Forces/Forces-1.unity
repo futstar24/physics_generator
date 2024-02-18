@@ -7957,11 +7957,11 @@ MonoBehaviour:
     initialValues: []
     units: M/S^2
   - propertyName: XForce
-    enabled: 1
+    enabled: 0
     initialValues: []
     units: N
   - propertyName: YForce
-    enabled: 1
+    enabled: 0
     initialValues: []
     units: N
 --- !u!114 &5478403500681360260
@@ -8187,7 +8187,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_text: 'Goal: Input Force acting on the ball just enough to keep the ball standing
-    still.'
+    still'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8a89fa14b10d46a99122fd4f73fca9a2, type: 2}
   m_sharedMaterial: {fileID: 2140474, guid: 8a89fa14b10d46a99122fd4f73fca9a2, type: 2}
@@ -8214,12 +8214,12 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 18
+  m_fontSize: 36.86
   m_fontSizeBase: 14
   m_fontWeight: 400
   m_enableAutoSizing: 1
   m_fontSizeMin: 18
-  m_fontSizeMax: 72
+  m_fontSizeMax: 36.86
   m_fontStyle: 3
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
