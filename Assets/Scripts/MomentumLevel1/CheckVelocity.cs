@@ -24,7 +24,7 @@ public class CheckVelocity : MonoBehaviour
                 win.SetActive(true);
             } else
             {
-                win.SetActive(true);
+                lose.SetActive(true);
             }
         } 
     }
