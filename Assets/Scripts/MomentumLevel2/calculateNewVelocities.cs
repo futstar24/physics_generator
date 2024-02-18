@@ -34,7 +34,7 @@ public class calculateNewVelocities : MonoBehaviour
             block2.velocity = newV2;
             float vel = (float) Math.Round(newV2.x, 3);
             Debug.Log(newV2.x + " "+goalV2);
-            if (Math.Round(newV2.x,3) == goalV2)
+            if (Math.Round(newV2.x,3) == 1.5)
             {
                 win.SetActive(true);
 
