@@ -38,6 +38,7 @@ public class PlayLevel : MonoBehaviour
         propertyInfo.Add("Momentum-2", new string[][] { new string[] { "velocity" }, new string[] { "velocity", "mass" } });
         propertyInfo.Add("Kinematics-2", new string[][] { new string[] { "velocity" }, new string[] { "velocity", "acceleration"} });
         propertyInfo.Add("Kinematics-3", new string[][] { new string[] { "velocity" }, new string[] { "velocity", "acceleration" } });
+        propertyInfo.Add("Momentum-3", new string[][] { new string[] { "velocity" }, new string[] { "velocity", "mass" } });
         levelMode();
         propertiesText.text = "";
         levelHeight = 7;
@@ -55,6 +56,10 @@ public class PlayLevel : MonoBehaviour
             else if (sceneName == "Momentum-1")
             {
                 obj.gameObject.GetComponent<CheckVelocity>().velocityGoal = goalValue;
+            }
+            else if (sceneName == "Momentum-3" && obj.name == "SpaceRock")
+            {
+                obj.gameObject.GetComponent<CalculateVelocitiesMomentum3>().goalVF = goalValue;
             }
         }
 

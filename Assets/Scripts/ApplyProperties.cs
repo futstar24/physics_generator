@@ -9,7 +9,7 @@ public class ApplyProperties : MonoBehaviour
 
     public void applyProperties(string[][] properties, Rigidbody2D obj,string levelName)
     {
-     
+
         if (levelName == "Kinematics-1")
         {
             obj.gameObject.GetComponent<Timer>().t = Time.realtimeSinceStartup;
@@ -41,6 +41,7 @@ public class ApplyProperties : MonoBehaviour
                 if (property[0] == "mass")
                 {
                     obj.mass = float.Parse(property[1]);
+                    Debug.Log("set mass");
                 }
                 if (property[0] == "acceleration")
                 {
@@ -58,9 +59,24 @@ public class ApplyProperties : MonoBehaviour
             }
 
         }
+
+        StartCoroutine(DelayThenFall(0.05f,levelName,obj));
+    
+
+    
+        
     }
 
-    public void OnChanged(string str)
+IEnumerator DelayThenFall(float delay,string levelName, Rigidbody2D obj)
+{
+    yield return new WaitForSeconds(delay);
+    if (levelName == "Momentum-3" && obj.name == "SpaceRock")
+    {
+        obj.GetComponent<CalculateVelocitiesMomentum3>().calculate();
+    }
+}
+
+public void OnChanged(string str)
     {
         string[] keywords = str.Split(" ");
         string input = new string("");
