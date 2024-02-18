@@ -37,9 +37,13 @@ public class FrictionLevel1 : MonoBehaviour
         if (Math.Abs(this.gameObject.transform.position.x-prevX)<0.1 && Math.Abs(this.gameObject.transform.position.y - prevY) < 0.1)
         {
             winScreen.SetActive(true);
+
+            PlayerPrefs.SetInt("Friction1", 1);
         } else
         {
             loseScreen.SetActive(true);
+
+            PlayerPrefs.SetInt("Friction1", 0);
         }
     }
 }

@@ -27,6 +27,7 @@ public class GroundCollision : MonoBehaviour
         if (collision.gameObject.tag == "badGround" && !resultGiven)
         {
             loseScreen.SetActive(true);
+            PlayerPrefs.SetInt("Kinematics2", 0);
             this.gameObject.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
             resultGiven = true;
             this.gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
@@ -34,11 +35,12 @@ public class GroundCollision : MonoBehaviour
         }
         if (collision.gameObject.tag == "winGround" && !resultGiven)
         {
-            Debug.Log("Win");
             this.gameObject.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
             resultGiven = true;
             this.gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
             winScreen.SetActive(true);
+
+            PlayerPrefs.SetInt("Kinematics2", 1);
         }
     }
 

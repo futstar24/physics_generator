@@ -22,9 +22,11 @@ public class CheckVelocity : MonoBehaviour
             if (block.velocity.x == velocityGoal)
             {
                 win.SetActive(true);
+                PlayerPrefs.SetInt("Momentum1",1);
             } else
             {
                 lose.SetActive(true);
+                PlayerPrefs.SetInt("Momentum1", 0);
             }
         } 
     }
