@@ -8,7 +8,9 @@ public class GroundCollision : MonoBehaviour
 {
 
     private bool resultGiven = false;
-    public TMP_Text resultText;
+
+    public GameObject winScreen;
+    public GameObject loseScreen;
     public GameObject BallFrame;
 
     private float leaveGroundX;
@@ -24,11 +26,11 @@ public class GroundCollision : MonoBehaviour
     {
         if (collision.gameObject.tag == "badGround" && !resultGiven)
         {
-            Debug.Log("Lose");
+            loseScreen.SetActive(true);
             this.gameObject.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
             resultGiven = true;
             this.gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
-            resultText.text = "Distance Traveled:" + Math.Round((this.gameObject.transform.position.x - leaveGroundX-0.2),1);
+            
         }
         if (collision.gameObject.tag == "winGround" && !resultGiven)
         {
@@ -36,7 +38,7 @@ public class GroundCollision : MonoBehaviour
             this.gameObject.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
             resultGiven = true;
             this.gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
-            resultText.text = "Distance Traveled:" + Math.Round((this.gameObject.transform.position.x - leaveGroundX-0.2), 1);
+            winScreen.SetActive(true);
         }
     }
 
