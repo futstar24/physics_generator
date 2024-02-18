@@ -2550,12 +2550,17 @@ MonoBehaviour:
     initialValues: []
     units: M/S^2
   - propertyName: XForce
-    enabled: 1
+    enabled: 0
     initialValues: []
     units: N
   - propertyName: YForce
     enabled: 0
     initialValues: []
+    units: N
+  - propertyName: Distance to Travel
+    enabled: 1
+    initialValues:
+    - 8
     units: N
 --- !u!1 &1194777211
 GameObject:
@@ -8526,8 +8531,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: -111}
-  m_SizeDelta: {x: 800, y: 50}
+  m_AnchoredPosition: {x: -129.05957, y: -193.33545}
+  m_SizeDelta: {x: 1058.1191, y: 184.6708}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1619475043
 MonoBehaviour:
@@ -8549,8 +8554,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Input a applied force that acts on the block. The block will reach a radar
-    at 8m, block is 10kg.
+  m_text: Input an applied force that acts on the block to get the block to go 15
+    m/s when it reachesa radar at 8m away.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8a89fa14b10d46a99122fd4f73fca9a2, type: 2}
   m_sharedMaterial: {fileID: 2140474, guid: 8a89fa14b10d46a99122fd4f73fca9a2, type: 2}
@@ -8577,7 +8582,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 23.6
+  m_fontSize: 41.95
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -9325,7 +9330,7 @@ Transform:
   m_GameObject: {fileID: 2047797454}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -5, y: -2, z: 0}
+  m_LocalPosition: {x: -5, y: -2, z: 10}
   m_LocalScale: {x: 2, y: 2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

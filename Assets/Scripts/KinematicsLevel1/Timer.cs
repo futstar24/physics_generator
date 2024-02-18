@@ -18,7 +18,8 @@ public class Timer : MonoBehaviour
         float runTime = Time.realtimeSinceStartup - t - (float)0.03;
         timing = false;
         float yourTime = (float)Math.Round(runTime, 2);
-        if (Math.Abs(Math.Round(runTime, 2)-timeGoal) < 0.03)
+        Debug.Log(yourTime);
+        if (Math.Abs(Math.Round(runTime, 2)-1.12) < 0.05)
         {
             win.SetActive(true);
         } else

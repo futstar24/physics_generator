@@ -19,15 +19,23 @@ public class CheckVelocity : MonoBehaviour
         {
             Debug.Log("here2");
             float vel = (float)Math.Round(block.velocity.x,3);
-            if (block.velocity.x == velocityGoal)
-            {
-                win.SetActive(true);
-                PlayerPrefs.SetInt("Momentum1",1);
-            } else
-            {
-                lose.SetActive(true);
-                PlayerPrefs.SetInt("Momentum1", 0);
-            }
+            StartCoroutine(display(3f, block.velocity.x));
+            
         } 
+    }
+
+    IEnumerator display(float delay, float vel)
+    {
+        yield return new WaitForSeconds(delay);
+        if (vel == 4)
+        {
+            win.SetActive(true);
+            PlayerPrefs.SetInt("Momentum1", 1);
+        }
+        else
+        {
+            lose.SetActive(true);
+            PlayerPrefs.SetInt("Momentum1", 0);
+        }
     }
 }

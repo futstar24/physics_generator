@@ -577,7 +577,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.09556377, y: 0.6383743}
+  m_AnchoredPosition: {x: -0.09556377, y: 1.0000001}
   m_SizeDelta: {x: 1, y: 1}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!58 &431988970
@@ -7520,8 +7520,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Ball Drop, a random time will be given set the height so the ball drops
-    then
+  m_text: Choose the correct height to have the ball hit the ground after 1.1 seconds.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8a89fa14b10d46a99122fd4f73fca9a2, type: 2}
   m_sharedMaterial: {fileID: 2140474, guid: 8a89fa14b10d46a99122fd4f73fca9a2, type: 2}
@@ -9216,8 +9215,9 @@ MonoBehaviour:
     initialValues: []
     units: M/S
   - propertyName: YVelocity
-    enabled: 0
-    initialValues: []
+    enabled: 1
+    initialValues:
+    - 0
     units: M/S
   - propertyName: XAcceleration
     enabled: 0
@@ -9228,7 +9228,7 @@ MonoBehaviour:
     initialValues: []
     units: M/S^2
   - propertyName: XForce
-    enabled: 1
+    enabled: 0
     initialValues: []
     units: N
   - propertyName: YForce
@@ -9622,7 +9622,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -4.43}
+  m_AnchoredPosition: {x: 0, y: -4}
   m_SizeDelta: {x: 1, y: 1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!61 &8136780082968746988

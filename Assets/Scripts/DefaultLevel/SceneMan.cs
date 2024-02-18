@@ -15,27 +15,30 @@ public class SceneSwitch : MonoBehaviour
         if (sceneName.Contains("1"))
         {
             SceneManager.LoadScene(sceneName.Replace("1", "2"));
+            string[] str = sceneName.Split("-");
+            PlayerPrefs.SetInt(str[0] + "1", 1);
         }
         else if (sceneName.Contains("2"))
         {
             SceneManager.LoadScene(sceneName.Replace("2", "3"));
+            string[] str = sceneName.Split("-");
+            PlayerPrefs.SetInt(str[0] + "2", 1);
         }
         else
         {
             if (sceneName.Contains("Kinematics"))
             {
-                SceneManager.LoadScene("Force-1");
+                PlayerPrefs.SetInt("Kinematics3", 1);
+                SceneManager.LoadScene("Forces-1");
             }
             else if (sceneName.Contains("Force"))
             {
-                SceneManager.LoadScene("Energy-1");
-            }
-            else if (sceneName.Contains("Energy"))
-            {
-                SceneManager.LoadScene("Force-1");
+                PlayerPrefs.SetInt("Force3", 1);
+                SceneManager.LoadScene("Momentum-1");
             }
             else if (sceneName.Contains("Momentum"))
             {
+                PlayerPrefs.SetInt("Momentum3", 1);
                 SceneManager.LoadScene("LevelSelector");
             }
         }

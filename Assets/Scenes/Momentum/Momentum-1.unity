@@ -448,8 +448,10 @@ MonoBehaviour:
   initialPosLevel: []
   baseProperties:
   - propertyName: Mass
-    enabled: 0
-    initialValues: []
+    enabled: 1
+    initialValues:
+    - 1
+    - 2.5
     units: KG
   - propertyName: Height
     enabled: 0
@@ -457,8 +459,10 @@ MonoBehaviour:
     - 5
     units: M
   - propertyName: XVelocity
-    enabled: 0
-    initialValues: []
+    enabled: 1
+    initialValues:
+    - 0
+    - 2
     units: M/S
   - propertyName: YVelocity
     enabled: 0
@@ -473,7 +477,7 @@ MonoBehaviour:
     initialValues: []
     units: M/S^2
   - propertyName: XForce
-    enabled: 1
+    enabled: 0
     initialValues: []
     units: N
   - propertyName: YForce

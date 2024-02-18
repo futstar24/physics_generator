@@ -18,7 +18,7 @@ public class PullForceLevel : MonoBehaviour
 
             Debug.Log("updatin");
             result = true;
-            if (Math.Abs(this.gameObject.GetComponent<Rigidbody2D>().velocity.x-15) <= 5)
+            if (Math.Abs(this.gameObject.GetComponent<Rigidbody2D>().velocity.x-15) <= 0.5)
             {
                 win.SetActive(true);
 

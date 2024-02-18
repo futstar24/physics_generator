@@ -34,17 +34,24 @@ public class calculateNewVelocities : MonoBehaviour
             block2.velocity = newV2;
             float vel = (float) Math.Round(newV2.x, 3);
             Debug.Log(newV2.x + " "+goalV2);
-            if (Math.Round(newV2.x,3) == 1.5)
+            StartCoroutine(display(3f, newV2.x));
+            
+           
+        }
+        IEnumerator display(float delay, float vel)
+        {
+            yield return new WaitForSeconds(delay);
+            if (Math.Round(vel, 3) == 1.25)
             {
                 win.SetActive(true);
 
                 PlayerPrefs.SetInt("Momentum2", 1);
-            } else
+            }
+            else
             {
                 lose.SetActive(true);
                 PlayerPrefs.SetInt("Momentum2", 1);
             }
-           
         }
     }
 }

@@ -334,7 +334,7 @@ public class PlayLevel : MonoBehaviour
 
                 if (property == "height")
                 {
-                    levelObjects[levelObjectNames.IndexOf(objName)].gameObject.transform.position = new Vector3(0, (float) numVal - 3, 0);
+                    levelObjects[levelObjectNames.IndexOf(objName)].gameObject.transform.position = new Vector3(0, (float) numVal - 2, 0);
                 }
 
 

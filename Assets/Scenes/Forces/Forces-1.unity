@@ -257,8 +257,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -2413806693520163455, guid: ebe73ca9363db456bacf42c025bb4847, type: 3}
-  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_Sprite: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
+  m_Color: {r: 0.9339623, g: 0.101326115, b: 0.51940703, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -7552,9 +7552,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Ball undergoing Static Friction is 10kg.
-
-'
+  m_text: With a frictional force and gravity acting on the block, add an applied
+    force of the eprfect megneitude to keep the block from moving.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8a89fa14b10d46a99122fd4f73fca9a2, type: 2}
   m_sharedMaterial: {fileID: 2140474, guid: 8a89fa14b10d46a99122fd4f73fca9a2, type: 2}
@@ -7581,7 +7580,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 34.05
+  m_fontSize: 36
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -7617,7 +7616,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_margin: {x: -299.26855, y: 0, z: 321.71368, w: -127.189026}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -7964,6 +7963,16 @@ MonoBehaviour:
     enabled: 0
     initialValues: []
     units: N
+  - propertyName: Co. of Friction
+    enabled: 1
+    initialValues:
+    - 0.74
+    units: N
+  - propertyName: Incline Angle
+    enabled: 1
+    initialValues:
+    - 42.8
+    units: N
 --- !u!114 &5478403500681360260
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8104,9 +8113,9 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: -111}
+  m_AnchoredPosition: {x: -635.94574, y: -136}
   m_SizeDelta: {x: 800, y: 50}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_Pivot: {x: -0.29493222, y: 0}
 --- !u!1 &5732855513199883638
 GameObject:
   m_ObjectHideFlags: 0

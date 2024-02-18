@@ -25,13 +25,24 @@ public class CalculateVelocitiesMomentum3 : MonoBehaviour
         Vector3 astronautVF = new Vector3(((rock.mass+astronaut.mass)*rockVI-rock.mass*rock.velocity.x)/astronaut.mass,0,0);
         astronaut.velocity = astronautVF;
         //resultText.text = "The astronaut's final velocity: " + Math.Round(astronaut.velocity.x,3);
-        if (Math.Round(astronaut.velocity.x, 3) == goalVF)
+        StartCoroutine(display(3f, astronaut.velocity.x));
+        
+    }
+
+    IEnumerator display(float delay, float vel)
+    {
+        yield return new WaitForSeconds(delay);
+        if (Math.Round(vel, 3) == 2.5)
         {
             Debug.Log("win");
             winScreen.SetActive(true);
-        }  else
+            PlayerPrefs.SetInt("Momentum3", 1);
+        }
+        else
         {
             loseScreen.SetActive(true);
+
+            PlayerPrefs.SetInt("Momentum3", 0);
         }
     }
 }
