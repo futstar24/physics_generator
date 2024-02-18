@@ -24,7 +24,7 @@ public class InputManager : MonoBehaviour
     public void OnChanged(TMP_InputField inputField)
     {
         Debug.Log("f");
-        
+        bool num = false;
         string[] keywords = inputField.text.Split(" ");
         string input = new string("");
         for (int i = 0; i < keywords.Length; i++)
@@ -52,9 +52,20 @@ public class InputManager : MonoBehaviour
             {
                 input += " " + "<color=purple>angle</color>";
             }
+          
             else
             {
-                input += " " + keywords[i];
+                int value;
+                if (int.TryParse(keywords[i], out value) && !num)
+                {
+                    input += " " + "<color=purple>" + value + "</color>";
+                    num = true;
+                }
+                else
+                {
+                    input += " " + keywords[i];
+                }
+                
             }
         }
         inputField.text = input;
