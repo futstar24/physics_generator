@@ -36,6 +36,8 @@ public class PlayLevel : MonoBehaviour
 
     public GameObject applyProperties;
 
+    public Transform[] initialPosLevel;
+
     [Serializable]
     public struct baseProperty
     {
@@ -123,6 +125,8 @@ public class PlayLevel : MonoBehaviour
         goalStartText = goalText.text;
         goalText.text = goalStartText+goalValue;
 
+        initialPosLevel = new Transform[levelObjects.Count];
+
         inputs = new List<string>();
         int i = 0;
         foreach (Rigidbody2D obj in levelObjects)
@@ -144,11 +148,22 @@ public class PlayLevel : MonoBehaviour
             }
 
             createProperties(levelObject, i);
+            initialPosLevel[i] = levelObject.transform;
             i++;
         }
 
 
 
+    }
+
+    public void ResetLevel()
+    {
+        currentProperties.Clear();
+        int i = 0;
+        foreach(Rigidbody2D obj in levelObjects)
+        {
+            
+        }
     }
 
     public void practiceMode()
