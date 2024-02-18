@@ -13,10 +13,10 @@ public class LevelProgress : MonoBehaviour
         PlayerPrefs.SetInt("Energy1", 0);
         PlayerPrefs.SetInt("Energy2", 0);
         PlayerPrefs.SetInt("Energy3", 0);
-        PlayerPrefs.SetInt("Forces1", 1);
+        PlayerPrefs.SetInt("Forces1", 0);
         PlayerPrefs.SetInt("Forces2", 0);
         PlayerPrefs.SetInt("Forces3", 0);
-        PlayerPrefs.SetInt("Momentum1", 1);
+        PlayerPrefs.SetInt("Momentum1", 0);
         PlayerPrefs.SetInt("Momentum2", 0);
         PlayerPrefs.SetInt("Momentum3", 0);
     }

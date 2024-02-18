@@ -612,7 +612,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 58841072}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 259118925}
+        m_TargetAssemblyTypeName: LevelSelector, Assembly-CSharp
+        m_MethodName: OnLevelSelect
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Momentum-2
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &58841071
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2427,7 +2439,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: '"Forces-2"'
+          m_StringArgument: Forces-2
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &391383266
@@ -3770,7 +3782,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: '"Forces-2"'
+          m_StringArgument: Kinematics-3
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &663871377
@@ -4630,7 +4642,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: '"Kinematics-2"'
+          m_StringArgument: Kinematics-2
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &847519599
@@ -5564,7 +5576,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: '"Forces-3"'
+          m_StringArgument: Forces-3
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &1088248787
@@ -7285,7 +7297,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1566240562}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 259118925}
+        m_TargetAssemblyTypeName: LevelSelector, Assembly-CSharp
+        m_MethodName: OnLevelSelect
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Momentum-3
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1566240561
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7964,16 +7988,16 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 259118924}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: 
-        m_Mode: 1
+      - m_Target: {fileID: 259118925}
+        m_TargetAssemblyTypeName: LevelSelector, Assembly-CSharp
+        m_MethodName: OnLevelSelect
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: Forces-1
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &1607512687
@@ -8113,7 +8137,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1615800758}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 259118925}
+        m_TargetAssemblyTypeName: LevelSelector, Assembly-CSharp
+        m_MethodName: OnLevelSelect
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Momentum-1
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1615800757
 MonoBehaviour:
   m_ObjectHideFlags: 0
