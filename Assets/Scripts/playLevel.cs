@@ -81,11 +81,27 @@ public class PlayLevel : MonoBehaviour
             return propertyName + ": " + value + units;
         }
 
-        public void assignValues(string propertyName, float value, string units)
+        public void assignValues(string propertyName, float value)
         {
             this.propertyName = propertyName;
             this.value = value;
-            this.units = units;
+            if (propertyName.ToLower().Contains("velocity"))
+            {
+                this.units = "m/s";
+            }
+            else if (propertyName.ToLower().Contains("mass"))
+            {
+                this.units = "kg";
+            }
+            else if (propertyName.ToLower().Contains("acceleration"))
+            {
+                this.units = "m/s^2";
+            }
+            else if (propertyName.ToLower().Contains("height"))
+            {
+                this.units = "m";
+            }
+
         }
     }
 
@@ -165,7 +181,7 @@ public class PlayLevel : MonoBehaviour
         }
     }
 
-    public void submitText()
+    public void SubmitText()
     {
 
         List<string> words = new List<string>(input.text.Split(new string[] { " ", "'", "," }, StringSplitOptions.RemoveEmptyEntries));
@@ -179,10 +195,14 @@ public class PlayLevel : MonoBehaviour
         int objCount = 0;
         int directionCount = 0;
         int numCount = 0;
-        foreach (string word in words)
+        foreach (string word2 in words)
         {
+            string word = word2.ToLower();
+            Debug.Log(string.Join(" ",propertyKeyWords));
+            Debug.Log(word);
             if (propertyKeyWords.Contains(word))
             {
+                Debug.Log("here");
                 property = word;
                 propertyCount++;
             }
@@ -226,10 +246,10 @@ public class PlayLevel : MonoBehaviour
             }
         }
 
-
+        Debug.Log(property+numVal+direction);
         if ((objName != "" || levelObjects.Count == 1) && property != "" && numVal != null && (direction != "" || property == "angle" || property == "degrees" || property == "mass" || property == "height") && directionCount <= 1 && objCount <= 1 && propertyCount <= 1 && numCount <= 1)
         {
-            if (!(property == "height" && (numVal > levelHeight || numVal < 0)))
+            if (!(property == "height" && (numVal > levelHeight || numVal <= 0)))
             {
                 if (objName == "")
                 {
@@ -239,15 +259,9 @@ public class PlayLevel : MonoBehaviour
                 }
                 Debug.Log(objName + " " + property + " " + numVal + " " + direction);
 
-                string newInputText = beautifyText(words, objName, property, numVal.ToString(), direction);
-                if (property == "height")
-                {
-                    Debug.Log(obj.gameObject.transform.parent.gameObject.name);
-                    obj.gameObject.transform.parent.gameObject.transform.position = new Vector3(0, (float)numVal - 3, 0);
-                }
-
-                string[] myProperty = { property, numVal.ToString(), direction , objName };
+                string[] myProperty = { property, numVal.ToString(), direction, objName };
                 Debug.Log(myProperty[0]);
+                bool exists = false;
                 foreach (string[] prop in properties)
                 {
                     if (prop[0] == property && prop[1] == numVal.ToString() && prop[2] == direction && prop[3] == objName)
@@ -255,55 +269,47 @@ public class PlayLevel : MonoBehaviour
                         int removeI = properties.IndexOf(prop);
                         properties.Remove(prop);
                         inputs.RemoveAt(removeI);
+                        exists = true;
                         break;
                     }
                 }
                 properties.Add(myProperty);
-                inputs.Add(newInputText);
-                propertiesText.text = "";
-                foreach (string t in inputs)
+
+                myProperty[0] = direction + property;
+
+                if (exists)
                 {
-                    propertiesText.text += t + "\n";
+                    foreach (currentProperty cP in currentProperties[levelObjectNames.IndexOf(myProperty[3])])
+                    {
+                        if(cP.propertyName == myProperty[0])
+                        {
+                            cP.assignValues(myProperty[0], float.Parse(myProperty[1]));
+                        }
+                        Debug.Log("x");
+                    }
+                } else
+                {
+                    Debug.Log("c");
+                    currentProperty cP = new currentProperty();
+                    cP.assignValues(myProperty[0], float.Parse(myProperty[1]));
+                    currentProperties[levelObjectNames.IndexOf(myProperty[3])].Add(cP);
+                    Debug.Log(currentProperties[levelObjectNames.IndexOf(myProperty[3])].Count);
                 }
-                input.text = "";
+                DrawProperties();
+                Debug.Log("b");
+                
+
+                if (property == "height")
+                {
+                    obj.gameObject.transform.parent.gameObject.transform.position = new Vector3(0, (float)numVal - 3, 0);
+                }
+
+
             }
         }
         else
         {
             Debug.Log(property + "fail");
-        }
-    }
-
-    public string beautifyText(List<string> words, string objName2, string property, string numVal, string direction)
-    {
-        string text = string.Join(" ", words);
-        Debug.Log("before beautify "+text);
-        text += " ";
-        text = " " + text;
-        Debug.Log("obj"+objName2);
-        text = Regex.Replace(text, "<[^>]*>", "", RegexOptions.Singleline);
-        text = Regex.Replace(text, objName2, "<color=#ff00ff>" + objName2 + "</color>", RegexOptions.Singleline);
-        text = Regex.Replace(text, property, "<color=#ff0000>" + property + "</color>", RegexOptions.Singleline);
-        text = Regex.Replace(text, numVal, "<color=#0000ff>" + numVal + "</color>", RegexOptions.Singleline);
-        if (direction != "")
-        {
-            direction = " " + direction + " ";
-            text = Regex.Replace(text, direction, "<color=#00ddff>" + direction + "</color>", RegexOptions.Singleline);
-        }
-        Debug.Log(text);
-        return text;
-
-    }
-
-    public void addProperties()
-    {
-        if (properties.ToArray().Length == 0) { return; }
-        GameObject apply = new GameObject();
-        apply.AddComponent<ApplyProperties>();
-
-        foreach (Rigidbody2D levelObject in levelObjects)
-        {
-            apply.GetComponent<ApplyProperties>().applyProperties(properties.ToArray(), levelObject, SceneManager.GetActiveScene().name);
         }
     }
     private void createProperties(GameObject levelObject, int objectNum)
@@ -316,7 +322,7 @@ public class PlayLevel : MonoBehaviour
             if (bP.enabled)
             {
                 currentProperty currentProperty = new currentProperty();
-                currentProperty.assignValues(bP.propertyName, bP.returnValue(objectNum), bP.units);
+                currentProperty.assignValues(bP.propertyName, bP.returnValue(objectNum));
                 if (currentProperties.ContainsKey(objectNum))
                 {
                     currentProperties[objectNum].Add(currentProperty);
@@ -337,13 +343,12 @@ public class PlayLevel : MonoBehaviour
     public void RunSim()
     {
         bool check = false;
-        for (int index = 0; index < currentProperties.Count - 1; index++)
+        for (int index = 0; index < currentProperties.Count; index++)
         {
             KeyValuePair<int, List<currentProperty>> entry = currentProperties.ElementAt(index);
 
             Rigidbody2D obj = levelObjects[index];
-            if (!check)
-            {
+            if (!check) {
                 if (sceneName == "Kinematics-1")
                 {
                     obj.gameObject.GetComponent<Timer>().t = Time.realtimeSinceStartup;
@@ -404,14 +409,14 @@ IEnumerator DelayThenFall(float delay, string levelName, Rigidbody2D obj)
 
 private void DrawProperties()
     {
-        for (int index = 0; index < currentProperties.Count - 1; index++)
+        for (int index = 0; index < currentProperties.Count; index++)
         {
             KeyValuePair<int, List<currentProperty>> entry = currentProperties.ElementAt(index);
-
             GameObject propertyText = levelObjects[index].transform.GetChild(0).gameObject.transform.GetChild(0).transform.GetChild(0).transform.gameObject;
             propertyText.GetComponent<TMP_Text>().text = "";
             foreach (currentProperty cP in entry.Value)
             {
+                Debug.Log(cP.ToString());
                 propertyText.GetComponent<TMP_Text>().text += cP.ToString() + "\n";
             }
         }
