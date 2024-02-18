@@ -20,4 +20,22 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Kinematics/Kinematics-3.unity
     guid: af1aa11b12ae242caa5509b69496da10
+  - enabled: 1
+    path: Assets/Scenes/Forces/Forces-2.unity
+    guid: a5a555c4b4dc746df98f92c7a2907aff
+  - enabled: 1
+    path: Assets/Scenes/Forces/Forces-3.unity
+    guid: ff9cb944676d844b9819fcd4471b5f9c
+  - enabled: 1
+    path: Assets/Scenes/Momentum/Momentum-1.unity
+    guid: b26181908cf234a1ea49ccd976c39024
+  - enabled: 1
+    path: Assets/Scenes/Momentum/Momentum-2.unity
+    guid: b9225b8258fa24b61b2d1f5ccb93ad56
+  - enabled: 1
+    path: Assets/Scenes/Momentum/Momentum-3.unity
+    guid: 3043ed1821bd4449d9ba8c9890069a45
+  - enabled: 1
+    path: Assets/Scenes/Forces/Forces-1.unity
+    guid: 82288539cf64143efa6c0c8baa0fd109
   m_configObjects: {}
