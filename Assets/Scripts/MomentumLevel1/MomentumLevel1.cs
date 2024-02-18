@@ -17,22 +17,23 @@ public class MometumLevel1 : MonoBehaviour
     public List<string[]> properties = new List<string[]>();
     public int levelHeight;
     public List<String> inputs;
+    public TMP_Text targetVelocity;
+
+    public Rigidbody2D bigBlock;
 
     private void Start()
     {
         propertiesText.text = "";
         levelHeight = 7;
-        double[] possibleFinalVelocities = { 1.15 };
+        double[] possibleFinalVelocities = { 5 };
         System.Random random = new System.Random();
         int randomIndex = random.Next(possibleFinalVelocities.Length);
+        targetVelocity.text = "Target Velocity:" + possibleFinalVelocities[randomIndex].ToString();
         inputs = new List<string>();
         foreach (Rigidbody2D obj in levelObjects)
         {
             obj.gravityScale = 0;
-            if (obj.gameObject.GetComponent<Timer>() != null)
-            {
-                obj.gameObject.GetComponent<Timer>().timeGoal = possibleFinalVelocities[randomIndex];
-            }
+            obj.gameObject.GetComponent<CheckVelocity>().velocityGoal = possibleFinalVelocities[randomIndex];
         }
 
 
@@ -175,9 +176,11 @@ public class MometumLevel1 : MonoBehaviour
     {
         GameObject apply = new GameObject();
         apply.AddComponent<ApplyProperties>();
+
+        bigBlock.velocity = new Vector2(2, 0);
         foreach (Rigidbody2D levelObject in levelObjects)
         {
-            apply.GetComponent<ApplyProperties>().applyProperties(properties.ToArray(), levelObject);
+            apply.GetComponent<ApplyProperties>().applyProperties(properties.ToArray(), levelObject,"Momentum1");
         }
     }
 

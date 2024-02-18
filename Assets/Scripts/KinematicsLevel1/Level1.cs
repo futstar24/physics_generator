@@ -178,10 +178,11 @@ public class textInputSubmit : MonoBehaviour
         GameObject apply = new GameObject();
         apply.AddComponent<ApplyProperties>();
 
+
         foreach (Rigidbody2D levelObject in levelObjects)
         {
             levelObject.gravityScale = 1;
-            apply.GetComponent<ApplyProperties>().applyProperties(properties.ToArray(),levelObject);
+            apply.GetComponent<ApplyProperties>().applyProperties(properties.ToArray(),levelObject,"Kinematics1");
         }
     }
 
