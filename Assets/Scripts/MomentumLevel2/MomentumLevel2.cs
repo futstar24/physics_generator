@@ -5,46 +5,78 @@ using TMPro;
 using System.Text.RegularExpressions;
 using System.Linq;
 using System;
+using UnityEngine.UI;
 
-public class MometumLevel1 : MonoBehaviour
+public class MometumLevel2 : MonoBehaviour
 {
 
     public TMP_InputField input;
-    public Rigidbody2D[] levelObjects;
-    public string[] levelObjectNames;
-    public string[] propertyKeyWords;
+    public List<Rigidbody2D> levelObjects;
+    public List<string> levelObjectNames;
+    public List<string> propertyKeyWords;
     public TMP_Text propertiesText;
     public List<string[]> properties = new List<string[]>();
     public int levelHeight;
     public List<string> inputs;
-    public TMP_Text targetVelocity;
+    public TMP_Text goalText;
+    public Rigidbody2D block1;
+    public Rigidbody2D block2;
+    public Button practiceButton;
 
-    public Rigidbody2D bigBlock;
 
     private void Start()
     {
+        levelMode();
         propertiesText.text = "";
         levelHeight = 7;
-        double[] possibleFinalVelocities = { 5 };
-        System.Random random = new System.Random();
-        int randomIndex = random.Next(possibleFinalVelocities.Length);
-        targetVelocity.text = "Target Velocity:" + possibleFinalVelocities[randomIndex].ToString();
+
+        goalText.text = "Goal V2: 2 m/s";
         inputs = new List<string>();
         foreach (Rigidbody2D obj in levelObjects)
         {
             obj.gravityScale = 0;
-            obj.gameObject.GetComponent<CheckVelocity>().velocityGoal = possibleFinalVelocities[randomIndex];
+            obj.gameObject.GetComponent<calculateNewVelocities>().goalV2 = 2;
         }
 
 
     }
 
+    public void practiceMode()
+    {
+        if (practiceButton.GetComponentInChildren<TextMeshProUGUI>().text == "Practice")
+        {
+            propertyKeyWords = new List<string>(new string[] { "velocity", "mass" });
+            levelObjectNames = new List<string>();
+            levelObjects = new List<Rigidbody2D>(new Rigidbody2D[] { block1, block2 });
+            foreach (Rigidbody2D rb in levelObjects)
+            {
+                levelObjectNames.Add(rb.name);
+            }
+            practiceButton.GetComponentInChildren<TextMeshProUGUI>().text = "Back to Level";
+        } else
+        {
+            levelMode();
+        }
+
+    }
+
+    public void levelMode()
+    {
+        propertyKeyWords = new List<string>(new string[] { "velocity"});
+        levelObjectNames = new List<string>();
+        levelObjects = new List<Rigidbody2D>(new Rigidbody2D[] { block1});
+        foreach (Rigidbody2D rb in levelObjects)
+        {
+            levelObjectNames.Add(rb.name);
+        }
+        practiceButton.GetComponentInChildren<TextMeshProUGUI>().text = "Practice";
+    }
 
     public void submitText()
     {
 
         List<string> words = new List<string>(input.text.Split(new string[] { " ", "'", "," }, StringSplitOptions.RemoveEmptyEntries));
-        Debug.Log(words.ToString());
+        Debug.Log("Words:" + string.Join(" ", words));
         Rigidbody2D obj = null;
         string property = "";
         string objName = "";
@@ -54,7 +86,6 @@ public class MometumLevel1 : MonoBehaviour
         int objCount = 0;
         int directionCount = 0;
         int numCount = 0;
-        int changeI = 0;
         foreach (string word in words)
         {
             if (propertyKeyWords.Contains(word))
@@ -65,7 +96,7 @@ public class MometumLevel1 : MonoBehaviour
             if (levelObjectNames.Contains(word))
             {
                 objName = word;
-                for (int i = 0; i < levelObjectNames.Length; i++)
+                for (int i = 0; i < levelObjectNames.Count; i++)
                 {
                     if (levelObjectNames[i] == objName)
                     {
@@ -88,8 +119,10 @@ public class MometumLevel1 : MonoBehaviour
 
             try
             {
-
-                changeI = words.IndexOf(word);
+                foreach (string wwww in words)
+                {
+                    Debug.Log("word:"+wwww);
+                }
                 numVal = (float)Math.Round(float.Parse(word), 3);
                 Debug.Log("num val" + numVal.ToString());
                 numCount++;
@@ -100,13 +133,8 @@ public class MometumLevel1 : MonoBehaviour
             }
         }
 
-        if (numVal != null)
-        {
-            words[changeI] = numVal.ToString();
-        }
 
-
-        if ((objName != "" || levelObjects.Length == 1) && property != "" && numVal != null && (direction != "" || property == "angle" || property == "degrees" || property == "mass" || property == "height") && directionCount <= 1 && objCount <= 1 && propertyCount <= 1 && numCount <= 1)
+        if ((objName != "" || levelObjects.Count == 1) && property != "" && numVal != null && (direction != "" || property == "angle" || property == "degrees" || property == "mass" || property == "height") && directionCount <= 1 && objCount <= 1 && propertyCount <= 1 && numCount <= 1)
         {
             if (!(property == "height" && (numVal > levelHeight || numVal < 0)))
             {
@@ -125,11 +153,11 @@ public class MometumLevel1 : MonoBehaviour
                     obj.gameObject.transform.parent.gameObject.transform.position = new Vector3(0, (float)numVal - 3, 0);
                 }
 
-                string[] myProperty = { property, numVal.ToString(), direction };
+                string[] myProperty = { property, numVal.ToString(), direction , objName };
                 Debug.Log(myProperty[0]);
                 foreach (string[] prop in properties)
                 {
-                    if (prop[0] == property)
+                    if (prop[0] == property && prop[1] == numVal.ToString() && prop[2] == direction && prop[3] == objName)
                     {
                         int removeI = properties.IndexOf(prop);
                         properties.Remove(prop);
@@ -153,13 +181,15 @@ public class MometumLevel1 : MonoBehaviour
         }
     }
 
-    public string beautifyText(List<string> words, string obj, string property, string numVal, string direction)
+    public string beautifyText(List<string> words, string objName2, string property, string numVal, string direction)
     {
-        string text = String.Join(" ", words);
+        string text = string.Join(" ", words);
+        Debug.Log("before beautify "+text);
         text += " ";
-        Debug.Log("text" + text);
+        text = " " + text;
+        Debug.Log("obj"+objName2);
         text = Regex.Replace(text, "<[^>]*>", "", RegexOptions.Singleline);
-        text = Regex.Replace(text, obj, "<color=#ff00ff>" + obj + "</color>", RegexOptions.Singleline);
+        text = Regex.Replace(text, objName2, "<color=#ff00ff>" + objName2 + "</color>", RegexOptions.Singleline);
         text = Regex.Replace(text, property, "<color=#ff0000>" + property + "</color>", RegexOptions.Singleline);
         text = Regex.Replace(text, numVal, "<color=#0000ff>" + numVal + "</color>", RegexOptions.Singleline);
         if (direction != "")
@@ -178,10 +208,9 @@ public class MometumLevel1 : MonoBehaviour
         GameObject apply = new GameObject();
         apply.AddComponent<ApplyProperties>();
 
-        bigBlock.velocity = new Vector2(2, 0);
         foreach (Rigidbody2D levelObject in levelObjects)
         {
-            apply.GetComponent<ApplyProperties>().applyProperties(properties.ToArray(), levelObject,"Momentum1");
+            apply.GetComponent<ApplyProperties>().applyProperties(properties.ToArray(), levelObject, "Momentum2");
         }
     }
 

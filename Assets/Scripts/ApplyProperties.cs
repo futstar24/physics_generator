@@ -17,44 +17,49 @@ public class ApplyProperties : MonoBehaviour
         Debug.Log(properties[0]);
         foreach (string[] property in properties)
         {
-            if (property[0] == "velocity")
+            if (property[3] == obj.name)
             {
-                if (property[2] == "x")
+                Debug.Log(properties.ToString());
+                if (property[0] == "velocity")
                 {
-                    obj.velocity = new Vector2(float.Parse(property[1]), 0);
-                } else
-                {
-                    obj.velocity = new Vector2(0, float.Parse(property[1]));
-                }
-                
-            }
-            if (property[0] == "mass")
-            {
-                obj.mass = float.Parse(property[1]);
-            }
-            if (property[0] == "acceleration")
-            {
-                if (property[2] == "x")
-                {
-                    obj.GetComponentInParent<ConstantForce2D>().force = new Vector2(float.Parse(property[1]) * obj.mass, 0);
-                }
-                else
-                {
-                    obj.GetComponentInParent<ConstantForce2D>().force = new Vector2(0, float.Parse(property[1]) * obj.mass);
-                }
-                
-            }
-            if (property[0] == "acceleration")
-            {
-                if (property[2] == "x")
-                {
-                    obj.GetComponentInParent<ConstantForce2D>().force = new Vector2(float.Parse(property[1]) * obj.mass, 0);
-                }
-                else
-                {
-                    obj.GetComponentInParent<ConstantForce2D>().force = new Vector2(0, float.Parse(property[1]) * obj.mass);
-                }
+                    if (property[2] == "x")
+                    {
+                        obj.velocity = new Vector2(float.Parse(property[1]), 0);
+                    }
+                    else
+                    {
+                        obj.velocity = new Vector2(0, float.Parse(property[1]));
+                    }
 
+                }
+                if (property[0] == "mass")
+                {
+                    obj.mass = float.Parse(property[1]);
+                }
+                if (property[0] == "acceleration")
+                {
+                    if (property[2] == "x")
+                    {
+                        obj.GetComponentInParent<ConstantForce2D>().force = new Vector2(float.Parse(property[1]) * obj.mass, 0);
+                    }
+                    else
+                    {
+                        obj.GetComponentInParent<ConstantForce2D>().force = new Vector2(0, float.Parse(property[1]) * obj.mass);
+                    }
+
+                }
+                if (property[0] == "acceleration")
+                {
+                    if (property[2] == "x")
+                    {
+                        obj.GetComponentInParent<ConstantForce2D>().force = new Vector2(float.Parse(property[1]) * obj.mass, 0);
+                    }
+                    else
+                    {
+                        obj.GetComponentInParent<ConstantForce2D>().force = new Vector2(0, float.Parse(property[1]) * obj.mass);
+                    }
+
+                }
             }
 
         }
