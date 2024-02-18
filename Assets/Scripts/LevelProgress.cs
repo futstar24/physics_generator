@@ -11,7 +11,7 @@ public class LevelProgress : MonoBehaviour
         PlayerPrefs.SetInt("Kinematics2", 1);
         PlayerPrefs.SetInt("Kinematics3", 1);
         PlayerPrefs.SetInt("Forces1", 1);
-        PlayerPrefs.SetInt("Forces1", 1);
+        PlayerPrefs.SetInt("Forces2", 1);
 
         PlayerPrefs.SetInt("Momentum1", 1);
         PlayerPrefs.SetInt("Momentum2", 1);
