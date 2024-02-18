@@ -55,12 +55,27 @@ public class ApplyProperties : MonoBehaviour
                     }
 
                 }
+                if (property[0] == "force")
+                {
+                    if (property[2] == "x")
+                    {
+                        obj.GetComponentInParent<ConstantForce2D>().force = new Vector2(float.Parse(property[1]), obj.GetComponentInParent<ConstantForce2D>().force.y);
+                    }
+                    else
+                    {
+                        obj.GetComponentInParent<ConstantForce2D>().force = new Vector2(obj.GetComponentInParent<ConstantForce2D>().force.x, float.Parse(property[1]));
+                    }
+                }
             }
 
         }
 
         StartCoroutine(DelayThenFall(0.05f,levelName,obj));
-    
+        if (levelName == "Forces-1" && obj.name == "Square")
+        {
+            obj.gravityScale = 1;
+            obj.GetComponent<FrictionLevel1>().setFriction();
+        }
 
     
         
