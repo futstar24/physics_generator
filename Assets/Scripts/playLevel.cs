@@ -33,16 +33,64 @@ public class PlayLevel : MonoBehaviour
     private string sceneName;
 
     public GameObject propertyUI;
+
+    public GameObject applyProperties;
+
     [Serializable]
     public struct baseProperty
     {
         public string propertyName;
         public bool enabled;
-        public float initialValue;
+        public float[] initialValues;
+        public string units;
+
+        public string ToString(int objectNum)
+        {
+            try
+            {
+                return propertyName + ": " + initialValues[objectNum] + units;
+            }
+            catch
+            {
+                return propertyName + ": " + 0 + units;
+            }
+            
+        }
+
+        public float returnValue(int objectNum)
+        {
+            try
+            {
+                return initialValues[objectNum];
+            }
+            catch
+            {
+                return 0;
+            }
+        }
+    }
+
+    private struct currentProperty
+    {
+        public string propertyName;
+        public float value;
+        public string units;
+
+        public override string ToString()
+        {
+            return propertyName + ": " + value + units;
+        }
+
+        public void assignValues(string propertyName, float value, string units)
+        {
+            this.propertyName = propertyName;
+            this.value = value;
+            this.units = units;
+        }
     }
 
     public baseProperty[] baseProperties = { };
-
+    private Dictionary<int, List<currentProperty>> currentProperties = new Dictionary<int, List<currentProperty>>();
 
     private void Start()
     {
@@ -60,6 +108,7 @@ public class PlayLevel : MonoBehaviour
         goalText.text = goalStartText+goalValue;
 
         inputs = new List<string>();
+        int i = 0;
         foreach (Rigidbody2D obj in levelObjects)
         {
             obj.gravityScale = 0;
@@ -78,10 +127,11 @@ public class PlayLevel : MonoBehaviour
                 obj.gameObject.GetComponent<CalculateVelocitiesMomentum3>().goalVF = goalValue;
             }
 
-            createProperties(levelObject);
+            createProperties(levelObject, i);
+            i++;
         }
 
-        
+
 
     }
 
@@ -256,16 +306,113 @@ public class PlayLevel : MonoBehaviour
             apply.GetComponent<ApplyProperties>().applyProperties(properties.ToArray(), levelObject, SceneManager.GetActiveScene().name);
         }
     }
-    private void createProperties(GameObject levelObject)
+    private void createProperties(GameObject levelObject, int objectNum)
     {
-        GameObject property = Instantiate(propertyUI, new Vector3(0, 0, 0), Quaternion.identity);
+        GameObject property = Instantiate(propertyUI, new Vector3(levelObject.transform.position.x + 0.6841426f, levelObject.transform.position.y - 0.9841181f, -5), Quaternion.identity);
         property.transform.parent = levelObject.transform;
 
         foreach(baseProperty bP in baseProperties)
         {
             if (bP.enabled)
             {
-               GameObject text = property.transform.GetChild(0).gameObject.transform.GetChild(0).transform.gameObject;
+                currentProperty currentProperty = new currentProperty();
+                currentProperty.assignValues(bP.propertyName, bP.returnValue(objectNum), bP.units);
+                if (currentProperties.ContainsKey(objectNum))
+                {
+                    currentProperties[objectNum].Add(currentProperty);
+                }
+                else
+                {
+                    currentProperties[objectNum] = new List<currentProperty>();
+                    currentProperties[objectNum].Add(currentProperty);
+                }
+                
+               GameObject propertyText = property.transform.GetChild(0).gameObject.transform.GetChild(0).transform.gameObject;
+               propertyText.GetComponent<TMP_Text>().text += bP.ToString(objectNum) + "\n";
+            }
+        }
+        
+    }
+
+    public void RunSim()
+    {
+        bool check = false;
+        for (int index = 0; index < currentProperties.Count - 1; index++)
+        {
+            KeyValuePair<int, List<currentProperty>> entry = currentProperties.ElementAt(index);
+
+            Rigidbody2D obj = levelObjects[index];
+            if (!check)
+            {
+                if (sceneName == "Kinematics-1")
+                {
+                    obj.gameObject.GetComponent<Timer>().t = Time.realtimeSinceStartup;
+                    obj.gameObject.GetComponent<Timer>().timing = true;
+                    obj.gravityScale = 1;
+                }
+                else if (sceneName == "Kinematics-2" || sceneName == "Kinematics-3")
+                {
+                    obj.gravityScale = 1;
+                }
+                check = true;
+            }
+            foreach (currentProperty cP in entry.Value)
+            {
+
+                if (cP.propertyName.ToLower().Contains("velocity"))
+                {
+                    if (cP.propertyName.ToLower().Contains("x"))
+                    {
+                        obj.velocity = new Vector2(cP.value, obj.velocity.y);
+                    }
+                    else
+                    {
+                        obj.velocity = new Vector2(obj.velocity.x, cP.value);
+                    }
+
+                }
+                if (cP.propertyName.ToLower().Contains("mass"))
+                {
+                    obj.mass = cP.value;
+                    Debug.Log("set mass");
+                }
+                if (cP.propertyName.ToLower().Contains("acceleration"))
+                {
+                    if (cP.propertyName.ToLower().Contains("x"))
+                    {
+                        obj.GetComponentInParent<ConstantForce2D>().force = new Vector2(cP.value * obj.mass, obj.GetComponentInParent<ConstantForce2D>().force.y);
+                    }
+                    else
+                    {
+                        obj.gravityScale = 0;
+                        obj.GetComponentInParent<ConstantForce2D>().force = new Vector2(obj.GetComponentInParent<ConstantForce2D>().force.x, cP.value * obj.mass);
+                    }
+
+                }
+            }
+                StartCoroutine(DelayThenFall(0.05f, sceneName, obj));
+        }
+    }
+IEnumerator DelayThenFall(float delay, string levelName, Rigidbody2D obj)
+{
+    yield return new WaitForSeconds(delay);
+    if (levelName == "Momentum-3" && obj.name == "SpaceRock")
+    {
+        obj.GetComponent<CalculateVelocitiesMomentum3>().calculate();
+    }
+}
+
+private void DrawProperties()
+    {
+        for (int index = 0; index < currentProperties.Count - 1; index++)
+        {
+            KeyValuePair<int, List<currentProperty>> entry = currentProperties.ElementAt(index);
+
+            GameObject propertyText = levelObjects[index].transform.GetChild(0).gameObject.transform.GetChild(0).transform.GetChild(0).transform.gameObject;
+            propertyText.GetComponent<TMP_Text>().text = "";
+            foreach (currentProperty cP in entry.Value)
+            {
+                propertyText.GetComponent<TMP_Text>().text += cP.ToString() + "\n";
             }
         }
     }

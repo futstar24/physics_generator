@@ -5,7 +5,6 @@ using TMPro;
 
 public class ApplyProperties : MonoBehaviour
 {
-    public TextMeshPro inputText;
 
     public void applyProperties(string[][] properties, Rigidbody2D obj,string levelName)
     {
@@ -76,34 +75,5 @@ IEnumerator DelayThenFall(float delay,string levelName, Rigidbody2D obj)
     }
 }
 
-public void OnChanged(string str)
-    {
-        string[] keywords = str.Split(" ");
-        string input = new string("");
-        for (int i = 0; i < keywords.Length; i++)
-        {
-            if (keywords[i] == "height")
-            {
-                input += "<color=blue>height</color>";
-            }
-            else if (keywords[i] == "acceleration")
-            {
-
-            }
-            else if (keywords[i] == "mass")
-            {
-
-            }
-            else if (keywords[i] == "velocity")
-            {
-
-            }
-            else if (keywords[i] == "angle")
-            {
-
-            }
-        }
-        //add more
-    }
 
 }
