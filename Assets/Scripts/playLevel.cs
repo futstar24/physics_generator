@@ -29,7 +29,6 @@ public class PlayLevel : MonoBehaviour
 
     public GameObject propertyUI;
 
-    public GameObject applyProperties;
 
     public Transform[] initialPosLevel;
 
@@ -152,15 +151,15 @@ public class PlayLevel : MonoBehaviour
 
     }
 
-    public void ResetLevel()
-    {
-        currentProperties.Clear();
-        int i = 0;
-        foreach(Rigidbody2D obj in levelObjects)
-        {
+    //public void ResetLevel()
+    //{
+    //    currentProperties.Clear();
+    //    int i = 0;
+    //    foreach(Rigidbody2D obj in levelObjects)
+    //    {
             
-        }
-    }
+    //    }
+    //}
 
     public void practiceMode()
     {
