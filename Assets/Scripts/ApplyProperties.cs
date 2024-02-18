@@ -10,10 +10,11 @@ public class ApplyProperties : MonoBehaviour
     public void applyProperties(string[][] properties, Rigidbody2D obj,string levelName)
     {
      
-        if (levelName == "Kinematics1")
+        if (levelName == "Kinematics-1")
         {
             obj.gameObject.GetComponent<Timer>().t = Time.realtimeSinceStartup;
             obj.gameObject.GetComponent<Timer>().timing = true;
+            obj.gravityScale = 1;
         }
         Debug.Log(properties[0]);
         foreach (string[] property in properties)

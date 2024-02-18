@@ -13,7 +13,7 @@ public class CheckVelocity : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         Debug.Log("here");
-        if (collision.gameObject.name == "bigBlock")
+        if (collision.gameObject.name == "Block2")
         {
             Debug.Log("here2");
             yourVelocityText.text = "Your velocity: " + Math.Round(block.velocity.x,3);
