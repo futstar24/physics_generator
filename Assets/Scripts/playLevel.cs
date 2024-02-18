@@ -97,6 +97,10 @@ public class PlayLevel : MonoBehaviour
             {
                 this.units = "m";
             }
+            else if (propertyName.ToLower().Contains("force"))
+            {
+                this.units = "N";
+            }
 
         }
     }
@@ -269,36 +273,46 @@ public class PlayLevel : MonoBehaviour
                 Debug.Log(objName + " " + property + " " + numVal + " " + direction);
 
                 string[] myProperty = { property, numVal.ToString(), direction, objName };
-                Debug.Log(myProperty[0]);
-                bool exists = false;
-                foreach (string[] prop in properties)
-                {
-                    if (prop[0] == property && prop[1] == numVal.ToString() && prop[2] == direction && prop[3] == objName)
-                    {
-                        int removeI = properties.IndexOf(prop);
-                        properties.Remove(prop);
-                        inputs.RemoveAt(removeI);
-                        exists = true;
-                        break;
-                    }
-                }
-                properties.Add(myProperty);
+                //Debug.Log(myProperty[0]);
+                //bool exists = false;
+                //foreach (string[] prop in properties)
+                //{
+                //    if (prop[0] == property && prop[1] == numVal.ToString() && prop[2] == direction && prop[3] == objName)
+                //    {
+                //        int removeI = properties.IndexOf(prop);
+                //        properties.Remove(prop);
+                //        inputs.RemoveAt(removeI);
+                //        exists = true;
+                //        break;
+                //    }
+                //}
+                //properties.Add(myProperty);
 
                 myProperty[0] = direction + property;
+                Debug.Log(myProperty[0]);
+                bool exists = false;
 
-                if (exists)
+                try
                 {
                     foreach (currentProperty cP in currentProperties[levelObjectNames.IndexOf(myProperty[3])])
                     {
-                        if (cP.propertyName == myProperty[0])
+                        Debug.Log("name " + cP.propertyName.ToLower());
+                        if (cP.propertyName.ToLower() == myProperty[0].ToLower())
                         {
+                            currentProperties[levelObjectNames.IndexOf(myProperty[3])].Remove(cP);
+                            Debug.Log("im over here");
                             cP.assignValues(myProperty[0], float.Parse(myProperty[1]));
+                            Debug.Log(cP.value);
+                            currentProperties[levelObjectNames.IndexOf(myProperty[3])].Add(cP);
+                            exists = true;
                         }
-                        Debug.Log("x");
                     }
-                } else
+                }
+                catch
+                { }
+                if (!exists)
                 {
-                    Debug.Log("c");
+                    Debug.Log("no im here");
                     currentProperty cP = new currentProperty();
                     cP.assignValues(myProperty[0], float.Parse(myProperty[1]));
                     currentProperties[levelObjectNames.IndexOf(myProperty[3])].Add(cP);
@@ -352,6 +366,7 @@ public class PlayLevel : MonoBehaviour
 
     public void RunSim()
     {
+        Debug.Log("running");
         bool check = false;
         for (int index = 0; index < currentProperties.Count; index++)
         {
@@ -404,8 +419,25 @@ public class PlayLevel : MonoBehaviour
                     }
 
                 }
+                if (cP.propertyName.ToLower().Contains("force"))
+                {
+                    if (cP.propertyName.ToLower().Contains("x"))
+                    {
+                        obj.GetComponentInParent<ConstantForce2D>().force = new Vector2(cP.value, obj.GetComponentInParent<ConstantForce2D>().force.y);
+                    }
+                    else
+                    {
+                        obj.gravityScale = 0;
+                        obj.GetComponentInParent<ConstantForce2D>().force = new Vector2(obj.GetComponentInParent<ConstantForce2D>().force.x, cP.value);
+                    }
+
+                }
             }
             StartCoroutine(DelayThenFall(0.05f, sceneName, obj));
+        }
+        if (sceneName == "Forces-1")
+        {
+            levelObjects[0].GetComponent<FrictionLevel1>().setFriction();
         }
     }
     IEnumerator DelayThenFall(float delay, string levelName, Rigidbody2D obj)

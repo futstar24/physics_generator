@@ -21,6 +21,7 @@ public class FrictionLevel1 : MonoBehaviour
 
     public void setFriction()
     {
+        this.gameObject.GetComponentInParent<Rigidbody2D>().gravityScale = 1;
         prevX = this.gameObject.transform.position.x;
         prevY = this.gameObject.transform.position.y;
         Debug.Log(((float)Math.Cos(angle)));
