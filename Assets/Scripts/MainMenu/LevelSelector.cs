@@ -2,10 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 public class LevelSelector : MonoBehaviour
 {
     public GameObject TopicsList;
     public List<GameObject> LevelsList;
+
+    public GameObject levelType;
 
     private string currentTopic;
     public void OnPlay()
@@ -59,9 +62,10 @@ public class LevelSelector : MonoBehaviour
 
     }
 
-    public void OnLevelSelect(int levelNum)
+    public void OnLevelSelect(string Scene)
     {
-        
+        SceneManager.LoadScene(Scene);
+        //SceneManager.LoadScene("Kinematics-1");
     }
 
 }
