@@ -50,12 +50,12 @@ public class LevelSelector : MonoBehaviour
             Debug.Log(topic + levelNum);
             if (PlayerPrefs.GetInt(new string(topic + levelNum)) == 0){
                 level.GetComponent<Button>().interactable = false;
-                level.transform.GetChild(1).gameObject.SetActive(true);
+               // level.transform.GetChild(1).gameObject.SetActive(true);
             }
             else
             {
                 level.GetComponent<Button>().interactable = true;
-                level.transform.GetChild(1).gameObject.SetActive(false);
+                //level.transform.GetChild(1).gameObject.SetActive(false);
             }
         }
 
