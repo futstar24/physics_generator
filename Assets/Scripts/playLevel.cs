@@ -19,18 +19,14 @@ public class PlayLevel : MonoBehaviour
     public List<string[]> properties = new List<string[]>();
     public int levelHeight;
     private List<string> inputs;
-    public TMP_Text goalText;
-    public Button practiceButton;
-    private Dictionary<string,string[][]> propertyInfo = new Dictionary<string, string[][]>();
+    private Dictionary<string, string[][]> propertyInfo = new Dictionary<string, string[][]>();
     public List<Rigidbody2D> mainLevelObjects;
     public List<Rigidbody2D> sandboxLevelObjects;
-    private List<string> mainLevelObjectNames;
-    private List<string> sandboxLevelObjectNames;
-    private string goalStartText;
     public float goalValue;
     private string sceneName;
 
-<<<<<<< Updated upstream
+    public bool inPracticeMode;
+
     public GameObject propertyUI;
 
     public GameObject applyProperties;
@@ -53,7 +49,7 @@ public class PlayLevel : MonoBehaviour
             {
                 return propertyName + ": " + 0 + units;
             }
-            
+
         }
 
         public float returnValue(int objectNum)
@@ -107,24 +103,22 @@ public class PlayLevel : MonoBehaviour
     public baseProperty[] baseProperties = { };
     private Dictionary<int, List<currentProperty>> currentProperties = new Dictionary<int, List<currentProperty>>();
 
-=======
->>>>>>> Stashed changes
+
     private void Start()
     {
+        inPracticeMode = false;
         sceneName = SceneManager.GetActiveScene().name;
-        propertyInfo.Add("Kinematics-1", new string[][] { new string[] { "height" }, new string[] { "height", "velocity","acceleration"}});
-        propertyInfo.Add("Momentum-1", new string[][] { new string[] { "velocity" }, new string[] { "velocity","mass" } });
+        propertyInfo.Add("DefaultLevel", new string[][] { new string[] { "velocity" }, new string[] { "height", "velocity", "acceleration" } });
+        propertyInfo.Add("Kinematics-1", new string[][] { new string[] { "height" }, new string[] { "height", "velocity", "acceleration" } });
+        propertyInfo.Add("Momentum-1", new string[][] { new string[] { "velocity" }, new string[] { "velocity", "mass" } });
         propertyInfo.Add("Momentum-2", new string[][] { new string[] { "velocity" }, new string[] { "velocity", "mass" } });
-        propertyInfo.Add("Kinematics-2", new string[][] { new string[] { "velocity" }, new string[] { "velocity", "acceleration"} });
+        propertyInfo.Add("Kinematics-2", new string[][] { new string[] { "velocity" }, new string[] { "velocity", "acceleration" } });
         propertyInfo.Add("Kinematics-3", new string[][] { new string[] { "velocity" }, new string[] { "velocity", "acceleration" } });
         propertyInfo.Add("Momentum-3", new string[][] { new string[] { "velocity" }, new string[] { "velocity", "mass" } });
         propertyInfo.Add("Forces-1", new string[][] { new string[] { "force" }, new string[] { "force", "mass" } });
         propertyInfo.Add("Forces-2", new string[][] { new string[] { "force" }, new string[] { "force", "mass" } });
         levelMode();
-        propertiesText.text = "";
         levelHeight = 7;
-        goalStartText = goalText.text;
-        goalText.text = goalStartText+goalValue;
 
         inputs = new List<string>();
         int i = 0;
@@ -143,12 +137,10 @@ public class PlayLevel : MonoBehaviour
             {
                 obj.gameObject.GetComponent<CalculateVelocitiesMomentum3>().goalVF = goalValue;
             }
-<<<<<<< Updated upstream
 
-            createProperties(levelObject, i);
+            createProperties(obj.gameObject, i);
             i++;
-=======
->>>>>>> Stashed changes
+
         }
 
 
@@ -157,7 +149,7 @@ public class PlayLevel : MonoBehaviour
 
     public void practiceMode()
     {
-        if (practiceButton.GetComponentInChildren<TextMeshProUGUI>().text == "Sandbox")
+        if (!inPracticeMode)
         {
             propertyKeyWords = new List<string>(propertyInfo[SceneManager.GetActiveScene().name][1]);
             levelObjectNames = new List<string>();
@@ -166,7 +158,6 @@ public class PlayLevel : MonoBehaviour
             {
                 levelObjectNames.Add(rb.name);
             }
-            practiceButton.GetComponentInChildren<TextMeshProUGUI>().text = "Back to Level";
         } else
         {
             levelMode();
@@ -183,7 +174,6 @@ public class PlayLevel : MonoBehaviour
         {
             levelObjectNames.Add(rb.name);
         }
-        practiceButton.GetComponentInChildren<TextMeshProUGUI>().text = "Sandbox";
     }
 
     public void SubmitText()
@@ -203,7 +193,7 @@ public class PlayLevel : MonoBehaviour
         foreach (string word2 in words)
         {
             string word = word2.ToLower();
-            Debug.Log(string.Join(" ",propertyKeyWords));
+            Debug.Log(string.Join(" ", propertyKeyWords));
             Debug.Log(word);
             if (propertyKeyWords.Contains(word))
             {
@@ -239,7 +229,7 @@ public class PlayLevel : MonoBehaviour
             {
                 foreach (string wwww in words)
                 {
-                    Debug.Log("word:"+wwww);
+                    Debug.Log("word:" + wwww);
                 }
                 numVal = (float)Math.Round(float.Parse(word), 3);
                 Debug.Log("num val" + numVal.ToString());
@@ -251,7 +241,7 @@ public class PlayLevel : MonoBehaviour
             }
         }
 
-        Debug.Log(property+numVal+direction);
+        Debug.Log(property + numVal + direction);
         if ((objName != "" || levelObjects.Count == 1) && property != "" && numVal != null && (direction != "" || property == "angle" || property == "degrees" || property == "mass" || property == "height") && directionCount <= 1 && objCount <= 1 && propertyCount <= 1 && numCount <= 1)
         {
             if (!(property == "height" && (numVal > levelHeight || numVal <= 0)))
@@ -286,7 +276,7 @@ public class PlayLevel : MonoBehaviour
                 {
                     foreach (currentProperty cP in currentProperties[levelObjectNames.IndexOf(myProperty[3])])
                     {
-                        if(cP.propertyName == myProperty[0])
+                        if (cP.propertyName == myProperty[0])
                         {
                             cP.assignValues(myProperty[0], float.Parse(myProperty[1]));
                         }
@@ -302,7 +292,7 @@ public class PlayLevel : MonoBehaviour
                 }
                 DrawProperties();
                 Debug.Log("b");
-                
+
 
                 if (property == "height")
                 {
@@ -319,11 +309,11 @@ public class PlayLevel : MonoBehaviour
     }
     private void createProperties(GameObject levelObject, int objectNum)
     {
-<<<<<<< Updated upstream
+
         GameObject property = Instantiate(propertyUI, new Vector3(levelObject.transform.position.x + 0.6841426f, levelObject.transform.position.y - 0.9841181f, -5), Quaternion.identity);
         property.transform.parent = levelObject.transform;
 
-        foreach(baseProperty bP in baseProperties)
+        foreach (baseProperty bP in baseProperties)
         {
             if (bP.enabled)
             {
@@ -338,12 +328,12 @@ public class PlayLevel : MonoBehaviour
                     currentProperties[objectNum] = new List<currentProperty>();
                     currentProperties[objectNum].Add(currentProperty);
                 }
-                
-               GameObject propertyText = property.transform.GetChild(0).gameObject.transform.GetChild(0).transform.gameObject;
-               propertyText.GetComponent<TMP_Text>().text += bP.ToString(objectNum) + "\n";
+
+                GameObject propertyText = property.transform.GetChild(0).gameObject.transform.GetChild(0).transform.gameObject;
+                propertyText.GetComponent<TMP_Text>().text += bP.ToString(objectNum) + "\n";
             }
         }
-        
+
     }
 
     public void RunSim()
@@ -401,17 +391,17 @@ public class PlayLevel : MonoBehaviour
 
                 }
             }
-                StartCoroutine(DelayThenFall(0.05f, sceneName, obj));
+            StartCoroutine(DelayThenFall(0.05f, sceneName, obj));
         }
     }
-IEnumerator DelayThenFall(float delay, string levelName, Rigidbody2D obj)
-{
-    yield return new WaitForSeconds(delay);
-    if (levelName == "Momentum-3" && obj.name == "SpaceRock")
+    IEnumerator DelayThenFall(float delay, string levelName, Rigidbody2D obj)
     {
-        obj.GetComponent<CalculateVelocitiesMomentum3>().calculate();
+        yield return new WaitForSeconds(delay);
+        if (levelName == "Momentum-3" && obj.name == "SpaceRock")
+        {
+            obj.GetComponent<CalculateVelocitiesMomentum3>().calculate();
+        }
     }
-}
 
 private void DrawProperties()
     {
@@ -427,38 +417,4 @@ private void DrawProperties()
             }
         }
     }
-=======
-        string text = string.Join(" ", words);
-        Debug.Log("before beautify "+text);
-        text += " ";
-        text = " " + text;
-        Debug.Log("obj"+objName2);
-        text = Regex.Replace(text, "<[^>]*>", "", RegexOptions.Singleline);
-        text = Regex.Replace(text, objName2, "<color=#ff00ff>" + objName2 + "</color>", RegexOptions.Singleline);
-        text = Regex.Replace(text, property, "<color=#ff0000>" + property + "</color>", RegexOptions.Singleline);
-        text = Regex.Replace(text, numVal, "<color=#0000ff>" + numVal + "</color>", RegexOptions.Singleline);
-        if (direction != "")
-        {
-            direction = " " + direction + " ";
-            text = Regex.Replace(text, direction, "<color=#00ddff>" + direction + "</color>", RegexOptions.Singleline);
-        }
-        Debug.Log(text);
-        return text;
-
-    }
-
-    public void addProperties()
-    {
-        if (properties.ToArray().Length == 0) { return; }
-        GameObject apply = new GameObject();
-        apply.AddComponent<ApplyProperties>();
-
-        foreach (Rigidbody2D levelObject in levelObjects)
-        {
-            apply.GetComponent<ApplyProperties>().applyProperties(properties.ToArray(), levelObject, SceneManager.GetActiveScene().name);
-        }
-    }
-
->>>>>>> Stashed changes
 }
-
