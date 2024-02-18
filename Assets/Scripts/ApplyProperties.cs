@@ -7,9 +7,10 @@ public class ApplyProperties : MonoBehaviour
 {
     public TextMeshPro inputText;
 
-    public void applyProperties(string[][] properties, Rigidbody2D obj)
+    public void applyProperties(string[][] properties, Rigidbody2D obj,string levelName)
     {
-        if (obj.gameObject.GetComponent<Timer>()!=null)
+     
+        if (levelName == "Kinematics1")
         {
             obj.gameObject.GetComponent<Timer>().t = Time.realtimeSinceStartup;
             obj.gameObject.GetComponent<Timer>().timing = true;
