@@ -30,7 +30,7 @@ public class PlayLevel : MonoBehaviour
     public GameObject propertyUI;
 
 
-    public Transform[] initialPosLevel;
+    public Vector3[] initialPosLevel;
 
     [Serializable]
     public struct baseProperty
@@ -125,7 +125,7 @@ public class PlayLevel : MonoBehaviour
         levelMode();
         levelHeight = 7;
 
-        initialPosLevel = new Transform[levelObjects.Count];
+        initialPosLevel = new Vector3[levelObjects.Count];
 
         inputs = new List<string>();
         int i = 0;
@@ -145,8 +145,11 @@ public class PlayLevel : MonoBehaviour
                 obj.gameObject.GetComponent<CalculateVelocitiesMomentum3>().goalVF = goalValue;
             }
             createProperties(obj.gameObject, i);
-            //initialPosLevel[i] = levelObject.transform;
 
+            initialPosLevel[i] = obj.gameObject.transform.position;
+            Debug.Log(i);
+            Debug.Log(initialPosLevel[i]);
+            
             i++;
 
         }
@@ -155,15 +158,18 @@ public class PlayLevel : MonoBehaviour
 
     }
 
-    //public void ResetLevel()
-    //{
-    //    currentProperties.Clear();
-    //    int i = 0;
-    //    foreach(Rigidbody2D obj in levelObjects)
-    //    {
-            
-    //    }
-    //}
+    public void ResetLevel()
+    {
+        currentProperties.Clear();
+        int j = 0;
+        foreach (Rigidbody2D obj in levelObjects)
+        {
+            obj.velocity = Vector2.zero;
+            obj.gameObject.transform.position = new Vector3(initialPosLevel[j].x, initialPosLevel[j].y, -5);
+            j++;
+        }
+        DrawProperties();
+    }
 
     public void practiceMode()
     {
@@ -448,7 +454,15 @@ public class PlayLevel : MonoBehaviour
             obj.GetComponent<CalculateVelocitiesMomentum3>().calculate();
         }
     }
+    private void clearProperties()
+    {
+        for (int index = 0; index < currentProperties.Count; index++)
+        {
+            KeyValuePair<int, List<currentProperty>> entry = currentProperties.ElementAt(index);
 
+
+        }
+    }
 private void DrawProperties()
     {
         for (int index = 0; index < currentProperties.Count; index++)
