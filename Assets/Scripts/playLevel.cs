@@ -121,6 +121,7 @@ public class PlayLevel : MonoBehaviour
         propertyInfo.Add("Momentum-3", new string[][] { new string[] { "velocity" }, new string[] { "velocity", "mass" } });
         propertyInfo.Add("Forces-1", new string[][] { new string[] { "force" }, new string[] { "force", "mass" } });
         propertyInfo.Add("Forces-2", new string[][] { new string[] { "force" }, new string[] { "force", "mass" } });
+        propertyInfo.Add("Forces-3", new string[][] { new string[] { "force" }, new string[] { "force", "mass" } });
         levelMode();
         levelHeight = 7;
 
@@ -434,6 +435,11 @@ public class PlayLevel : MonoBehaviour
                         obj.gravityScale = 0;
                         obj.GetComponentInParent<ConstantForce2D>().force = new Vector2(obj.GetComponentInParent<ConstantForce2D>().force.x, cP.value);
                     }
+                    if (sceneName == "Forces-3")
+                    {
+                        levelObjects[0].GetComponent<FrictionLevel3>().running = true;
+                        levelObjects[0].GetComponent<FrictionLevel3>().appliedForce = cP.value;
+                    }
 
                 }
             }
@@ -443,6 +449,7 @@ public class PlayLevel : MonoBehaviour
         {
             levelObjects[0].GetComponent<FrictionLevel1>().setFriction();
         }
+        
     }
     IEnumerator DelayThenFall(float delay, string levelName, Rigidbody2D obj)
     {
