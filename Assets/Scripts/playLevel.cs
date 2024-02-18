@@ -163,10 +163,14 @@ public class PlayLevel : MonoBehaviour
         int j = 0;
         foreach (Rigidbody2D obj in levelObjects)
         {
+            obj.GetComponentInParent<ConstantForce2D>().force = Vector2.zero;
+            obj.gravityScale = 0;
             obj.velocity = Vector2.zero;
             obj.gameObject.transform.position = new Vector3(initialPosLevel[j].x, initialPosLevel[j].y, -5);
             j++;
         }
+        inPracticeMode = true;
+        practiceMode();
         clearProperties();
     }
 
@@ -181,6 +185,7 @@ public class PlayLevel : MonoBehaviour
             {
                 levelObjectNames.Add(rb.name);
             }
+            inPracticeMode = true;
         } else
         {
             levelMode();
@@ -197,6 +202,8 @@ public class PlayLevel : MonoBehaviour
         {
             levelObjectNames.Add(rb.name);
         }
+
+        inPracticeMode = false;
     }
 
     public void SubmitText()
@@ -213,8 +220,10 @@ public class PlayLevel : MonoBehaviour
         int objCount = 0;
         int directionCount = 0;
         int numCount = 0;
+        int counter = 0;
         foreach (string word2 in words)
         {
+            counter += 1;
             string word = word2.ToLower();
             Debug.Log(string.Join(" ", propertyKeyWords));
             Debug.Log(word);
@@ -250,12 +259,7 @@ public class PlayLevel : MonoBehaviour
 
             try
             {
-                foreach (string wwww in words)
-                {
-                    Debug.Log("word:" + wwww);
-                }
                 numVal = (float)Math.Round(float.Parse(word), 3);
-                Debug.Log("num val" + numVal.ToString());
                 numCount++;
             }
             catch
@@ -263,6 +267,7 @@ public class PlayLevel : MonoBehaviour
                 continue;
             }
         }
+        Debug.Log("Counter" + counter);
 
         Debug.Log(property + numVal + direction);
         if ((objName != "" || levelObjects.Count == 1) && property != "" && numVal != null && (direction != "" || property == "angle" || property == "degrees" || property == "mass" || property == "height") && directionCount <= 1 && objCount <= 1 && propertyCount <= 1 && numCount <= 1)
@@ -329,7 +334,7 @@ public class PlayLevel : MonoBehaviour
 
                 if (property == "height")
                 {
-                    obj.gameObject.transform.parent.gameObject.transform.position = new Vector3(0, (float)numVal - 3, 0);
+                    levelObjects[levelObjectNames.IndexOf(objName)].gameObject.transform.position = new Vector3(0, (float) numVal - 3, 0);
                 }
 
 
@@ -441,15 +446,18 @@ public class PlayLevel : MonoBehaviour
                         levelObjects[0].GetComponent<FrictionLevel3>().appliedForce = cP.value;
                     }
 
+
                 }
             }
             StartCoroutine(DelayThenFall(0.05f, sceneName, obj));
         }
+
+
         if (sceneName == "Forces-1")
         {
             levelObjects[0].GetComponent<FrictionLevel1>().setFriction();
         }
-        
+
     }
     IEnumerator DelayThenFall(float delay, string levelName, Rigidbody2D obj)
     {

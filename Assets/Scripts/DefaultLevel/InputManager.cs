@@ -46,7 +46,7 @@ public class InputManager : MonoBehaviour
             }
             else if (keywords[i].ToLower() == "velocity")
             {
-                input += " " + "<color=green>velocty</color>";
+                input += " " + "<color=green>velocity</color>";
             }
             else if (keywords[i].ToLower() == "angle")
             {
