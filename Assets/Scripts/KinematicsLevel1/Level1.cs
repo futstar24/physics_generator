@@ -173,8 +173,11 @@ public class textInputSubmit : MonoBehaviour
 
     public void addProperties()
     {
+
+        if (properties.ToArray().Length == 0) { return; }
         GameObject apply = new GameObject();
         apply.AddComponent<ApplyProperties>();
+
         foreach (Rigidbody2D levelObject in levelObjects)
         {
             levelObject.gravityScale = 1;
